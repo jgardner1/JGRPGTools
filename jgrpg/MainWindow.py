@@ -3,6 +3,7 @@ from PyQt5.uic import loadUiType
 ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 
 from jgrpg.CreateCharacterDialog import CreateCharacterDialog
+from jgrpg.CreateRaceDialog import CreateRaceDialog
 
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import QCoreApplication
@@ -29,6 +30,16 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         dialog.raise_()
         dialog.activateWindow()
 
+    def createRace(self):
+        try:
+            dialog = self.createRaceDialog
+        except AttributeError:
+            dialog = self.createRaceDialog = CreateRaceDialog()
+
+        dialog.show()
+        dialog.raise_()
+        dialog.activateWindow()
+
     def activateActions(self):
         """Activate or deactivate actions based on the state of the universe
         and filename."""
@@ -37,6 +48,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         self.actionSaveUniverse.setEnabled(has_universe)
         self.actionSaveUniverseAs.setEnabled(has_universe)
         self.menuCharacter.setEnabled(has_universe)
+        self.menuRace.setEnabled(has_universe)
 
 
     def newUniverse(self):

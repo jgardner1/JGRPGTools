@@ -41,8 +41,15 @@
     </property>
     <addaction name="actionCharacterCreate"/>
    </widget>
+   <widget class="QMenu" name="menuRace">
+    <property name="title">
+     <string>&amp;Race</string>
+    </property>
+    <addaction name="actionCreateRace"/>
+   </widget>
    <addaction name="menuUniverse"/>
    <addaction name="menuCharacter"/>
+   <addaction name="menuRace"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNewUniverse">
@@ -78,10 +85,15 @@
   </action>
   <action name="actionCharacterCreate">
    <property name="text">
-    <string>&amp;Create</string>
+    <string>&amp;Create Character</string>
    </property>
    <property name="toolTip">
     <string>Create a New Character</string>
+   </property>
+  </action>
+  <action name="actionCreateRace">
+   <property name="text">
+    <string>Create Race</string>
    </property>
   </action>
  </widget>
@@ -183,6 +195,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCreateRace</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createRace()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>createCharacter()</slot>
@@ -190,5 +218,6 @@
   <slot>saveUniverseAs()</slot>
   <slot>openUniverse()</slot>
   <slot>newUniverse()</slot>
+  <slot>createRace()</slot>
  </slots>
 </ui>
