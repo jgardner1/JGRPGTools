@@ -1,18 +1,42 @@
 import json
 from weakref import proxy
 
-class Universe(object):
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
+
+class Universe(QStandardItemModel):
     """The Universe stores all the things in the universe. It is like the
     database instance."""
 
-    def __init__(self, *, characters=[], races=[]):
-        self.characters = [Character(self, **_) for _ in characters]
-        self.races = [Race(self, **_) for _ in races]
+    def __init__(self, **data):
+        super(Universe, self).__init__()
 
-    @classmethod
-    def load_from_json(cls, f):
+        self.init_from_data(**data)
+
+    def init_from_data(self, *, characters=[], races=[]):
+        self.clear()
+
+        root_item = self.invisibleRootItem()
+
+        self.characters = QStandardItem("Characters")
+        root_item.appendRow(self.characters)
+
+        characters = [Character(self, **data) for data in characters]
+
+        for _ in characters:
+            self.characters.appendRow(_)
+
+        self.races = QStandardItem("Races")
+        root_item.appendRow(self.races)
+
+        races = [Race(self, **data) for data in races]
+
+        for _ in races:
+            self.races.appendRow(_)
+
+
+    def load_from_json(self, f):
         data = json.load(open(f, 'r', encoding='utf8'))
-        return cls(**data)
+        self.init_from_data(**data)
 
     def save_to_json(self, f):
         data = json.dump(self.__json__(), open(f, 'w', encoding='utf8'), indent=2)
@@ -31,10 +55,11 @@ class Universe(object):
             'races':[_.__json__() for _ in self.races],
         }
 
-class Character(object):
+class Character(QStandardItem):
     """A character is any creature."""
 
     def __init__(self, universe, *, name=""):
+        super(Character, self).__init__(name)
         self.name = name
 
     def __json__(self):
@@ -42,10 +67,11 @@ class Character(object):
             'name':self.name,
         }
 
-class Race(object):
+class Race(QStandardItem):
     """A race is a type of creature."""
 
     def __init__(self, universe, *, name=""):
+        super(Race, self).__init__(name)
         self.name = name
 
     def __json__(self):
@@ -53,14 +79,15 @@ class Race(object):
             'name':self.name,
         }
 
+
 class GlobalData(object):
     """Stores the global data available everywhere in the app."""
-    universe = None
+    universe = Universe.new()
     filename = None
 
     @classmethod
     def open(cls, filename):
-        cls.universe = Universe.load_from_json(filename)
+        cls.universe.load_from_json(filename)
         cls.filename = filename
 
     @classmethod
