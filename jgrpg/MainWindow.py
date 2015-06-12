@@ -7,7 +7,7 @@ from jgrpg.CreateCharacterDialog import CreateCharacterDialog
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import QCoreApplication
 
-from jgrpg.model import Universe
+from jgrpg.model import GlobalData
 
 class MainWindow(MainWindowBaseClass, ui_MainWindow):
     
@@ -15,9 +15,6 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         super(MainWindow, self).__init__()
 
         self.setupUi(self)
-
-        self.universe = None
-        self.filename = None
 
         self.activateActions()
 
@@ -35,7 +32,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
     def activateActions(self):
         """Activate or deactivate actions based on the state of the universe
         and filename."""
-        has_universe = self.universe != None
+        has_universe = GlobalData.universe != None
 
         self.actionSaveUniverse.setEnabled(has_universe)
         self.actionSaveUniverseAs.setEnabled(has_universe)
@@ -43,16 +40,10 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
 
     def newUniverse(self):
-        print("newUniverse")
-        
-        self.universe = Universe.new()
-        self.filename = None
-
+        GlobalData.new()
         self.activateActions()
 
     def openUniverse(self):
-        print("openUniverse")
-
         filename, filefilter = QFileDialog.getOpenFileName(
             self,
             "Open Universe",
@@ -61,17 +52,16 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if not filename:
             return
 
-        self.filename = filename
-        self.universe = Universe.load_from_json(filename)
+        GlobalData.open(filename)
         self.activateActions()
         
     def saveUniverse(self):
-        print("saveUniverse")
-        if not self.filename:
+        if not GlobalData.filename:
             return self.saveUniverseAs()
+
+        GlobalData.save()
         
     def saveUniverseAs(self):
-        print("saveUniverseAs")
         filename, filefilter = QFileDialog.getSaveFileName(
             self,
             "Save Universe As",
@@ -83,7 +73,5 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if not filename.endswith('.jgu'):
             filename += '.jgu'
 
-        self.filename = filename
-        self.universe.save_to_json(filename)
-
+        GlobalData.save(filename)
         self.activateActions()
