@@ -1,10 +1,10 @@
 import json
-
+from weakref import proxy
 
 class Universe(object):
 
     def __init__(self, *, characters=[]):
-        self.characters = [Character(**c) for c in characters]
+        self.characters = [Character(self, **c) for c in characters]
 
     @classmethod
     def load_from_json(cls, f):
@@ -29,7 +29,8 @@ class Universe(object):
 
 class Character(object):
 
-    def __init__(self, *, name=""):
+    def __init__(self, universe, *, name=""):
+        self.universe = proxy(universe)
         self.name = name
 
     def __json__(self):
