@@ -27,35 +27,35 @@
     <property name="title">
      <string>&amp;Universe</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
+    <addaction name="actionNewUniverse"/>
+    <addaction name="actionOpenUniverse"/>
     <addaction name="separator"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_as"/>
+    <addaction name="actionSaveUniverse"/>
+    <addaction name="actionSaveUniverseAs"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menu_Character">
+   <widget class="QMenu" name="menuCharacter">
     <property name="title">
      <string>&amp;Character</string>
     </property>
     <addaction name="actionCharacterCreate"/>
    </widget>
    <addaction name="menuUniverse"/>
-   <addaction name="menu_Character"/>
+   <addaction name="menuCharacter"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNew">
+  <action name="actionNewUniverse">
    <property name="text">
     <string>&amp;New</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="actionOpenUniverse">
    <property name="text">
     <string>&amp;Open</string>
    </property>
   </action>
-  <action name="actionSave">
+  <action name="actionSaveUniverse">
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -63,7 +63,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionSave_as">
+  <action name="actionSaveUniverseAs">
    <property name="text">
     <string>Save &amp;as...</string>
    </property>
@@ -119,8 +119,76 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSaveUniverse</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveUniverse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSaveUniverseAs</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveUniverseAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOpenUniverse</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openUniverse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNewUniverse</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newUniverse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>createCharacter()</slot>
+  <slot>saveUniverse()</slot>
+  <slot>saveUniverseAs()</slot>
+  <slot>openUniverse()</slot>
+  <slot>newUniverse()</slot>
  </slots>
 </ui>
