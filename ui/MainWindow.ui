@@ -35,7 +35,14 @@
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menu_Character">
+    <property name="title">
+     <string>&amp;Character</string>
+    </property>
+    <addaction name="actionCharacterCreate"/>
+   </widget>
    <addaction name="menuUniverse"/>
+   <addaction name="menu_Character"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
@@ -69,6 +76,14 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionCharacterCreate">
+   <property name="text">
+    <string>&amp;Create</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a New Character</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -88,5 +103,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCharacterCreate</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createCharacter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>createCharacter()</slot>
+ </slots>
 </ui>
