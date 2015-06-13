@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>102</height>
+    <width>380</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
    <item row="0" column="1">
     <widget class="QLineEdit" name="nameLineEdit"/>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Race:</string>
@@ -52,7 +52,199 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item row="1" column="1">
+    <widget class="SelectRaceComboBox" name="selectRaceComboBox"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Attributes:</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="labelClass" stdset="0">
+      <string>fieldName</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="5" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton_6">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton_2">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="dexterityValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="constitutionValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Strength:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="strengthValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="charismaValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton_5">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Intelligence:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Wisdom:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton_3">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="wisdomValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="rerollStrengthPushButton_4">
+       <property name="text">
+        <string>reroll</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="QPushButton" name="rerollAllPushButton_8">
+       <property name="text">
+        <string>reroll all</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="intelligenceValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Dexterity:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Constitution:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Charisma:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -61,9 +253,6 @@
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="SelectRaceComboBox" name="selectRaceComboBox"/>
    </item>
   </layout>
  </widget>
@@ -83,8 +272,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>71</y>
+     <x>295</x>
+     <y>314</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -100,7 +289,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>295</x>
-     <y>77</y>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -108,5 +297,126 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>rerollStrengthPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollStrength()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>74</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollStrengthPushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollDexterity()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollStrengthPushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollConstitution()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>276</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollStrengthPushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollIntelligence()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>163</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollStrengthPushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollWisdom()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>279</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollStrengthPushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollCharisma()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>217</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rerollAllPushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rerollAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>300</x>
+     <y>272</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>rerollStrength()</slot>
+  <slot>rerollDexterity()</slot>
+  <slot>rerollConstitution()</slot>
+  <slot>rerollIntelligence()</slot>
+  <slot>rerollWisdom()</slot>
+  <slot>rerollCharisma()</slot>
+  <slot>rerollAll()</slot>
+ </slots>
 </ui>
