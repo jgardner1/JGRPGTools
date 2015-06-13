@@ -3,6 +3,7 @@ from PyQt5.uic import loadUiType
 ui_CreateRaceDialog, CreateRaceDialogBaseClass = loadUiType('ui/CreateRaceDialog.ui')
 
 from jgrpg.model import GlobalData
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 class CreateRaceDialog(
         CreateRaceDialogBaseClass,

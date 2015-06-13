@@ -1,38 +1,23 @@
 import json
 from weakref import proxy
 
+from PyQt5.QtCore import pyqtSignal, QObject
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
-class Universe(QStandardItemModel):
+class Universe(QObject):
     """The Universe stores all the things in the universe. It is like the
     database instance."""
 
     def __init__(self, **data):
         super(Universe, self).__init__()
+        self.characters = []
+        self.races = []
 
         self.init_from_data(**data)
 
     def init_from_data(self, *, characters=[], races=[]):
-        self.clear()
-
-        root_item = self.invisibleRootItem()
-
-        self.characters = QStandardItem("Characters")
-        root_item.appendRow(self.characters)
-
-        characters = [Character(self, **data) for data in characters]
-
-        for _ in characters:
-            self.characters.appendRow(_)
-
-        self.races = QStandardItem("Races")
-        root_item.appendRow(self.races)
-
-        races = [Race(self, **data) for data in races]
-
-        for _ in races:
-            self.races.appendRow(_)
-
+        self.characters[:] = [Character(self, **data) for data in characters]
+        self.races[:] = [Race(self, **data) for data in races]
 
     def load_from_json(self, f):
         data = json.load(open(f, 'r', encoding='utf8'))
@@ -55,11 +40,11 @@ class Universe(QStandardItemModel):
             'races':[_.__json__() for _ in self.races],
         }
 
-class Character(QStandardItem):
+class Character(QObject):
     """A character is any creature."""
 
     def __init__(self, universe, *, name=""):
-        super(Character, self).__init__(name)
+        super(Character, self).__init__()
         self.name = name
 
     def __json__(self):
@@ -67,11 +52,11 @@ class Character(QStandardItem):
             'name':self.name,
         }
 
-class Race(QStandardItem):
+class Race(QObject):
     """A race is a type of creature."""
 
     def __init__(self, universe, *, name=""):
-        super(Race, self).__init__(name)
+        super(Race, self).__init__()
         self.name = name
 
     def __json__(self):
@@ -80,36 +65,63 @@ class Race(QStandardItem):
         }
 
 
-class GlobalData(object):
+class GlobalDataClass(QObject):
     """Stores the global data available everywhere in the app."""
-    universe = Universe.new()
-    filename = None
 
-    @classmethod
-    def open(cls, filename):
-        cls.universe.load_from_json(filename)
-        cls.filename = filename
+    filename_changed = pyqtSignal('QString')
 
-    @classmethod
-    def save(cls, filename=None):
-        filename = filename or cls.filename
-        cls.universe.save_to_json(filename)
-        cls.filename = filename
+    # A character has been added to the end
+    character_added = pyqtSignal()
 
-    @classmethod
-    def new(cls):
-        cls.filename = None
-        cls.universe = Universe.new()
+    # The character at index has been removed
+    character_removed = pyqtSignal(int)
 
-    @classmethod
-    def createCharacter(cls, **data):
-        character = Character(cls.universe, **data)
-        cls.universe.characters.append(character)
+    # The characters have changed completely.
+    characters_reset = pyqtSignal()
+
+    race_added = pyqtSignal()
+    race_removed = pyqtSignal(int)
+    races_reset = pyqtSignal()
+
+    def __init__(self):
+        super(GlobalDataClass, self).__init__()
+        self.filename = None
+        self.universe = Universe.new()
+        self.races = self.universe.races
+        self.characters = self.universe.characters
+
+    def open(self, filename):
+        self.universe.load_from_json(filename)
+        self.characters_reset.emit()
+        self.races_reset.emit()
+
+        if filename != self.filename:
+            self.filename = filename
+            self.filename_changed.emit(self.filename)
+
+    def save(self, filename=None):
+        filename = filename or self.filename
+        self.universe.save_to_json(filename)
+        if filename != self.filename:
+            self.filename = filename
+            self.filename_changed.emit(self.filename)
+
+    def new(self):
+        self.filename = None
+        self.universe = Universe.new()
+        self.characters_reset.emit()
+        self.races_reset.emit()
+
+    def createCharacter(self, **data):
+        character = Character(self.universe, **data)
+        self.universe.characters.append(character)
+        self.character_added.emit()
         return character
 
-    @classmethod
-    def createRace(cls, **data):
-        race = Race(cls.universe, **data)
-        cls.universe.races.append(race)
+    def createRace(self, **data):
+        race = Race(self.universe, **data)
+        self.universe.races.append(race)
+        self.race_added.emit()
         return race
 
+GlobalData = GlobalDataClass()
