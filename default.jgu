@@ -1,0 +1,44 @@
+{
+  "characters": [
+  ],
+  "races": [
+    {
+      "name": "Human"
+    },
+    {
+      "name": "Dwarf, Mountain"
+    },
+    {
+      "name": "Dwarf, Hill"
+    },
+    {
+      "name": "Elf, High"
+    },
+    {
+      "name": "Elf, Drow"
+    },
+    {
+      "name": "Elf, Wood"
+    },
+    {
+      "name": "Dragonborn"
+    },
+    {
+      "name": "Gnome, Forest"
+    },
+    {
+      "name": "Gnome, Rock"
+    },
+    {
+      "name": "Half-Elf"
+    },
+    {
+      "name": "Half-Orc"
+    },
+    {
+      "name": "Tiefling"
+    }
+  ],
+  "skills":[],
+  "personalities":[]
+}

@@ -47,9 +47,24 @@
     </property>
     <addaction name="actionCreateRace"/>
    </widget>
+   <widget class="QMenu" name="menuSkills">
+    <property name="title">
+     <string>S&amp;kills</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCreateSkill"/>
+   </widget>
+   <widget class="QMenu" name="menuPersonalities">
+    <property name="title">
+     <string>Persona&amp;lities</string>
+    </property>
+    <addaction name="actionCreatePersonality"/>
+   </widget>
    <addaction name="menuUniverse"/>
    <addaction name="menuCharacter"/>
    <addaction name="menuRace"/>
+   <addaction name="menuSkills"/>
+   <addaction name="menuPersonalities"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="universeDockWidget">
@@ -109,6 +124,16 @@
   <action name="actionCreateRace">
    <property name="text">
     <string>Create Race</string>
+   </property>
+  </action>
+  <action name="actionCreatePersonality">
+   <property name="text">
+    <string>Create Personality</string>
+   </property>
+  </action>
+  <action name="actionCreateSkill">
+   <property name="text">
+    <string>Create Skill</string>
    </property>
   </action>
  </widget>
@@ -233,6 +258,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCreateSkill</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createSkill()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCreatePersonality</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createPersonality()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>createCharacter()</slot>
@@ -241,5 +298,7 @@
   <slot>openUniverse()</slot>
   <slot>newUniverse()</slot>
   <slot>createRace()</slot>
+  <slot>createSkill()</slot>
+  <slot>createPersonality()</slot>
  </slots>
 </ui>

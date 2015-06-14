@@ -1,53 +1,16 @@
 import json
-from weakref import proxy
 
 from PyQt5.QtCore import pyqtSignal, QObject
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
-class Universe(QObject):
-    """The Universe stores all the things in the universe. It is like the
-    database instance."""
-
-    def __init__(self, **data):
-        super(Universe, self).__init__()
-        self.characters = []
-        self.races = []
-
-        self.init_from_data(**data)
-
-    def init_from_data(self, *, characters=[], races=[]):
-        self.characters[:] = [Character(self, **data) for data in characters]
-        self.races[:] = [Race(self, **data) for data in races]
-
-    def load_from_json(self, f):
-        data = json.load(open(f, 'r', encoding='utf8'))
-        self.init_from_data(**data)
-
-    def save_to_json(self, f):
-        data = json.dump(self.__json__(), open(f, 'w', encoding='utf8'), indent=2)
-        
-    @classmethod
-    def new(cls):
-        # TODO: Default universe .jgu file
-        return cls(**{
-            "characters":[],
-            "races":[],
-        })
-
-    def __json__(self):
-        return {
-            'characters':[_.__json__() for _ in self.characters],
-            'races':[_.__json__() for _ in self.races],
-        }
-
 class Character(QObject):
     """A character is any creature."""
 
-    def __init__(self, universe, *, name=""):
+    def __init__(self, *, name=""):
         super(Character, self).__init__()
         self.name = name
 
-    def __json__(self):
+    def json(self):
         return {
             'name':self.name,
         }
@@ -55,11 +18,36 @@ class Character(QObject):
 class Race(QObject):
     """A race is a type of creature."""
 
-    def __init__(self, universe, *, name=""):
+    def __init__(self, *, name=""):
         super(Race, self).__init__()
         self.name = name
 
-    def __json__(self):
+    def json(self):
+        return {
+            'name':self.name,
+        }
+
+class Skill(QObject):
+    """A skill is something creatures can learn."""
+
+    def __init__(self, *, name=""):
+        super(Skill, self).__init__()
+        self.name = name
+
+    def json(self):
+        return {
+            'name':self.name,
+        }
+
+class Personality(QObject):
+    """A personality trait is something that the creature cannot learn and
+    cannot easily change."""
+
+    def __init__(self, *, name=""):
+        super(Personality, self).__init__()
+        self.name = name
+
+    def json(self):
         return {
             'name':self.name,
         }
@@ -83,45 +71,99 @@ class GlobalDataClass(QObject):
     race_removed = pyqtSignal(int)
     races_reset = pyqtSignal()
 
+    skill_added = pyqtSignal()
+    skill_removed = pyqtSignal(int)
+    skills_reset = pyqtSignal()
+
+    personality_added = pyqtSignal()
+    personality_removed = pyqtSignal(int)
+    personalities_reset = pyqtSignal()
+
     def __init__(self):
         super(GlobalDataClass, self).__init__()
         self.filename = None
-        self.universe = Universe.new()
-        self.races = self.universe.races
-        self.characters = self.universe.characters
+
+        # Never reassign these. If you'd like to replace the array, use
+        # self.races[:] = [...]
+        self.characters = []
+        self.races = []
+        self.skills = []
+        self.personalities = []
+
+        self.new()
+
+    def new(self):
+        self.load_from_json('default.jgu')
+        
+        self.filename = None
 
     def open(self, filename):
-        self.universe.load_from_json(filename)
-        self.characters_reset.emit()
-        self.races_reset.emit()
+        elf.load_from_json(filename)
 
         if filename != self.filename:
             self.filename = filename
             self.filename_changed.emit(self.filename)
+
+    def load_from_json(self, f):
+        data = json.load(open(f, 'r', encoding='utf8'))
+        self.init_from_data(**data)
+
+    def init_from_data(self, *,
+            characters=[],
+            races=[],
+            skills=[],
+            personalities=[]
+    ):
+        self.characters[:] = [Character(**data) for data in characters]
+        self.races[:] = [Race(**data) for data in races]
+        self.skills[:] = [Skill(**data) for data in skills]
+        self.personalities[:] = [Personality(**data)
+            for data in personalities]
+
+        self.characters_reset.emit()
+        self.races_reset.emit()
+        self.skills_reset.emit()
+        self.personalities_reset.emit()
+
 
     def save(self, filename=None):
         filename = filename or self.filename
-        self.universe.save_to_json(filename)
+        self.save_to_json(filename)
         if filename != self.filename:
             self.filename = filename
             self.filename_changed.emit(self.filename)
 
-    def new(self):
-        self.filename = None
-        self.universe = Universe.new()
-        self.characters_reset.emit()
-        self.races_reset.emit()
+    def save_to_json(self, f):
+        data = json.dump({
+            'characters':[_.json() for _ in self.characters],
+            'races':[_.json() for _ in self.races],
+            'skills':[_.json() for _ in self.skills],
+            'personalities':[_.json() for _ in self.personalities],
+        }, open(f, 'w', encoding='utf8'), indent=2)
 
     def createCharacter(self, **data):
-        character = Character(self.universe, **data)
-        self.universe.characters.append(character)
+        character = Character(**data)
+        self.characters.append(character)
         self.character_added.emit()
         return character
 
     def createRace(self, **data):
-        race = Race(self.universe, **data)
-        self.universe.races.append(race)
+        race = Race(**data)
+        self.races.append(race)
         self.race_added.emit()
         return race
+
+    def createSkill(self, **data):
+        skill = Skill(**data)
+        self.skills.append(skill)
+        self.skill_added.emit()
+        return skill
+
+    def createPersonality(self, **data):
+        personality = Personality(**data)
+        self.personalities.append(personality)
+        self.personality_added.emit()
+        return personality
+
 
 GlobalData = GlobalDataClass()

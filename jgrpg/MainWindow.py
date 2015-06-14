@@ -4,6 +4,8 @@ ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 
 from jgrpg.CreateCharacterDialog import CreateCharacterDialog
 from jgrpg.CreateRaceDialog import CreateRaceDialog
+from jgrpg.CreateSkillDialog import CreateSkillDialog
+from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtCore import QCoreApplication
@@ -17,43 +19,35 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         self.setupUi(self)
 
-        self.activateActions()
+        self.dialogs = {}
 
 
     def createCharacter(self):
-        try:
-            dialog = self.createCharacterDialog
-        except AttributeError:
-            dialog = self.createCharacterDialog = CreateCharacterDialog()
-
-        dialog.show()
-        dialog.raise_()
-        dialog.activateWindow()
+        self.modelessDialog(CreateCharacterDialog)
 
     def createRace(self):
+        self.modelessDialog(CreateRaceDialog)
+
+    def createSkill(self):
+        self.modelessDialog(CreateSkillDialog)
+
+    def createPersonality(self):
+        self.modelessDialog(CreatePersonalityDialog)
+
+    def modelessDialog(self, DialogClass):
+        name = DialogClass.__name__
         try:
-            dialog = self.createRaceDialog
-        except AttributeError:
-            dialog = self.createRaceDialog = CreateRaceDialog()
+            dialog = self.dialogs[name]
+        except KeyError:
+            dialog = self.dialogs[name] = DialogClass()
 
         dialog.show()
         dialog.raise_()
         dialog.activateWindow()
-
-    def activateActions(self):
-        """Activate or deactivate actions based on the state of the universe
-        and filename."""
-        has_universe = GlobalData.universe != None
-
-        self.actionSaveUniverse.setEnabled(has_universe)
-        self.actionSaveUniverseAs.setEnabled(has_universe)
-        self.menuCharacter.setEnabled(has_universe)
-        self.menuRace.setEnabled(has_universe)
 
 
     def newUniverse(self):
         GlobalData.new()
-        self.activateActions()
 
     def openUniverse(self):
         filename, filefilter = QFileDialog.getOpenFileName(
@@ -65,7 +59,6 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
             return
 
         GlobalData.open(filename)
-        self.activateActions()
         
     def saveUniverse(self):
         if not GlobalData.filename:
@@ -86,4 +79,3 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
             filename += '.jgu'
 
         GlobalData.save(filename)
-        self.activateActions()
