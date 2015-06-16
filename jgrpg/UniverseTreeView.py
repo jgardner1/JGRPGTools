@@ -13,9 +13,16 @@ class UniverseTreeView(QTreeView):
 
         root_item = model.invisibleRootItem()
         self.characters_item = QStandardItem("Characters")
+        self.characters_item.setEditable(False)
+
         self.races_item = QStandardItem("Races")
+        self.races_item.setEditable(False)
+
         self.skills_item = QStandardItem("Skills")
+        self.skills_item.setEditable(False)
+
         self.personalities_item = QStandardItem("Personalities")
+        self.personalities_item.setEditable(False)
 
         root_item.appendRow(self.characters_item)
         root_item.appendRow(self.races_item)
@@ -52,32 +59,48 @@ class UniverseTreeView(QTreeView):
         # Deletes all the rows
         item.setRowCount(0)
 
-        item.appendRows([QStandardItem(_.name)
-            for _ in GlobalData.characters])
+        subitems = [QStandardItem(_.name)
+            for _ in GlobalData.characters]
+        for subitem in subitems:
+            subitem.setEditable(False)
+
+        item.appendRows(subitems)
 
     def init_races(self):
         item = self.races_item
         # Deletes all the rows
         item.setRowCount(0)
 
-        item.appendRows([QStandardItem(_.name)
-            for _ in GlobalData.races])
+        subitems = [QStandardItem(_.name)
+            for _ in GlobalData.races]
+        for subitem in subitems:
+            subitem.setEditable(False)
+
+        item.appendRows(subitems)
 
     def init_skills(self):
         item = self.skills_item
         # Deletes all the rows
         item.setRowCount(0)
 
-        item.appendRows([QStandardItem(_.name)
-            for _ in GlobalData.skills])
+        subitems = [QStandardItem(_.name)
+            for _ in GlobalData.skills]
+        for subitem in subitems:
+            subitem.setEditable(False)
+
+        item.appendRows(subitems)
 
     def init_personalities(self):
         item = self.personalities_item
         # Deletes all the rows
         item.setRowCount(0)
 
-        item.appendRows([QStandardItem(_.name)
-            for _ in GlobalData.personalities])
+        subitems =[QStandardItem(_.name)
+            for _ in GlobalData.personalities]
+        for subitem in subitems:
+            subitem.setEditable(False)
+
+        item.appendRows(subitems)
 
 
             
