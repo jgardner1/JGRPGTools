@@ -4,6 +4,9 @@ from PyQt5.QtCore import Qt
 
 from jgrpg.model import GlobalData, Character, Race, Skill, Personality
 
+import __main__
+from jgrpg.ViewRaceWidget import ViewRaceWidget
+
 class UniverseTreeView(QTreeView):
 
     def __init__(self, parent=None):
@@ -86,6 +89,10 @@ class UniverseTreeView(QTreeView):
 
         if isinstance(item, Race):
             print("race")
+            window = ViewRaceWidget(item)
+            __main__.main_window.mdiArea.addSubWindow(window)
+            window.show()
+
         elif isinstance(item, Character):
             print("character")
         elif isinstance(item, Skill):
@@ -94,3 +101,4 @@ class UniverseTreeView(QTreeView):
             print("personality")
         else:
             print("none of the above")
+
