@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>JGRPG Toolkit v0.1</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../jgrpg.qrc">
+    <normaloff>:/img/assets/icon.png</normaloff>:/img/assets/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -20,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUniverse">
@@ -123,17 +127,17 @@
   </action>
   <action name="actionCreateRace">
    <property name="text">
-    <string>Create Race</string>
+    <string>&amp;Create Race</string>
    </property>
   </action>
   <action name="actionCreatePersonality">
    <property name="text">
-    <string>Create Personality</string>
+    <string>&amp;Create Personality</string>
    </property>
   </action>
   <action name="actionCreateSkill">
    <property name="text">
-    <string>Create Skill</string>
+    <string>&amp;Create Skill</string>
    </property>
   </action>
  </widget>
@@ -144,7 +148,9 @@
    <header>jgrpg/UniverseTreeView.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../jgrpg.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionQuit</sender>
