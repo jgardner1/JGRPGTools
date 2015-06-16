@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QTreeView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtCore import Qt
 
-from jgrpg.model import GlobalData
+from jgrpg.model import GlobalData, Character, Race, Skill, Personality
 
 class UniverseTreeView(QTreeView):
 
@@ -47,6 +48,8 @@ class UniverseTreeView(QTreeView):
         GlobalData.personality_removed.connect(self.init_personalities)
         GlobalData.personalities_reset.connect(self.init_personalities)
 
+        self.activated.connect(self.item_activated)
+
 
     def init_all(self):
         self.init_characters()
@@ -54,54 +57,40 @@ class UniverseTreeView(QTreeView):
         self.init_skills()
         self.init_personalities()
 
-    def init_characters(self):
-        item = self.characters_item
-        # Deletes all the rows
+    def _set_items(self, item, data):
         item.setRowCount(0)
-
-        subitems = [QStandardItem(_.name)
-            for _ in GlobalData.characters]
-        for subitem in subitems:
+        subitems = []
+        for d in sorted(data, key=lambda r: r.name.lower()):
+            subitem = QStandardItem(d.name)
             subitem.setEditable(False)
+            subitem.setData(d, Qt.UserRole)
+            subitems.append(subitem)
 
         item.appendRows(subitems)
+            
+
+    def init_characters(self):
+        self._set_items(self.characters_item, GlobalData.characters)
 
     def init_races(self):
-        item = self.races_item
-        # Deletes all the rows
-        item.setRowCount(0)
-
-        subitems = [QStandardItem(_.name)
-            for _ in GlobalData.races]
-        for subitem in subitems:
-            subitem.setEditable(False)
-
-        item.appendRows(subitems)
+        self._set_items(self.races_item, GlobalData.races)
 
     def init_skills(self):
-        item = self.skills_item
-        # Deletes all the rows
-        item.setRowCount(0)
-
-        subitems = [QStandardItem(_.name)
-            for _ in GlobalData.skills]
-        for subitem in subitems:
-            subitem.setEditable(False)
-
-        item.appendRows(subitems)
+        self._set_items(self.skills_item, GlobalData.skills)
 
     def init_personalities(self):
-        item = self.personalities_item
-        # Deletes all the rows
-        item.setRowCount(0)
+        self._set_items(self.personalities_item, GlobalData.personalities)
 
-        subitems =[QStandardItem(_.name)
-            for _ in GlobalData.personalities]
-        for subitem in subitems:
-            subitem.setEditable(False)
+    def item_activated(self, index):
+        item = index.data(Qt.UserRole)
 
-        item.appendRows(subitems)
-
-
-            
-            
+        if isinstance(item, Race):
+            print("race")
+        elif isinstance(item, Character):
+            print("character")
+        elif isinstance(item, Skill):
+            print("skill")
+        elif isinstance(item, Personality):
+            print("personality")
+        else:
+            print("none of the above")
