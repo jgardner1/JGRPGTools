@@ -86,12 +86,19 @@ class UniverseTreeView(QTreeView):
 
     def item_activated(self, index):
         item = index.data(Qt.UserRole)
+        mdiArea = __main__.main_window.mdiArea
 
         if isinstance(item, Race):
-            print("race")
-            window = ViewRaceWidget(item)
-            __main__.main_window.mdiArea.addSubWindow(window)
-            window.show()
+            windows = __main__.main_window.mdiArea.subWindowList()
+            for window in windows:
+                widget = window.widget()
+                if isinstance(widget, ViewRaceWidget) and widget.race is item:
+                    mdiArea.setActiveSubWindow(window)
+                    break
+            else:
+                window = ViewRaceWidget(item)
+                mdiArea.addSubWindow(window)
+                window.show()
 
         elif isinstance(item, Character):
             print("character")
