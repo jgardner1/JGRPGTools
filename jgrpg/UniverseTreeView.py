@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTreeView
+from PyQt5.QtWidgets import QTreeView, QMessageBox
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
@@ -96,8 +96,9 @@ class UniverseTreeView(QTreeView):
                     mdiArea.setActiveSubWindow(window)
                     break
             else:
-                window = ViewRaceWidget(item)
-                mdiArea.addSubWindow(window)
+                widget = ViewRaceWidget(item)
+                window = mdiArea.addSubWindow(widget)
+                item.removed.connect(window.close)
                 window.show()
 
         elif isinstance(item, Character):
@@ -109,3 +110,26 @@ class UniverseTreeView(QTreeView):
         else:
             print("none of the above")
 
+    def keyPressEvent(self, event):
+        key = event.key()
+        if key == Qt.Key_Delete:
+            self.delete_current_item()
+        else:
+            super(UniverseTreeView, self).keyPressEvent(event)
+        
+    def delete_current_item(self):
+        index = self.currentIndex()
+        item = index.data(Qt.UserRole)
+        
+        if not item:
+            return
+        
+        mbox = QMessageBox(
+            QMessageBox.Warning,
+            "Confirm Delete",
+            "Do you want to delete {} ({})?".format(item.name, item.__class__.__name__),
+            QMessageBox.Yes | QMessageBox.Cancel)
+        ret = mbox.exec_()
+        if ret == QMessageBox.Yes:
+            GlobalData.deleteRace(item)
+    

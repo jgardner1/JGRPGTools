@@ -20,3 +20,5 @@ class ViewRaceWidget(
 
         print("Setting name text")
         self.nameValueLabel.setText(race.name)
+        
+        race.removed.connect(self.close)

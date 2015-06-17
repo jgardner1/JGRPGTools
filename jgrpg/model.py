@@ -17,7 +17,8 @@ class Character(QObject):
 
 class Race(QObject):
     """A race is a type of creature."""
-
+    removed  = pyqtSignal()
+    
     def __init__(self, *, name=""):
         super(Race, self).__init__()
         self.name = name
@@ -151,8 +152,14 @@ class GlobalDataClass(QObject):
         race = Race(**data)
         self.races.append(race)
         self.race_added.emit()
-        return race
-
+        return race 
+    
+    def deleteRace(self, race):
+        index = self.races.index(race)
+        self.races.pop(index)
+        self.race_removed.emit(index)
+        race.removed.emit()
+        
     def createSkill(self, **data):
         skill = Skill(**data)
         self.skills.append(skill)
