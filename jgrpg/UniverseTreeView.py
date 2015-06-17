@@ -89,7 +89,7 @@ class UniverseTreeView(QTreeView):
         mdiArea = __main__.main_window.mdiArea
 
         if isinstance(item, Race):
-            windows = __main__.main_window.mdiArea.subWindowList()
+            windows = mdiArea.subWindowList()
             for window in windows:
                 widget = window.widget()
                 if isinstance(widget, ViewRaceWidget) and widget.race is item:
