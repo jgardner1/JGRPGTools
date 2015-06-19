@@ -1,11 +1,12 @@
 from PyQt5.uic import loadUiType
 
-ui_CreateCharacterDialog, CreateCharacterDialogBaseClass = loadUiType('ui/CreateCharacterDialog.ui')
+ui_CreateCharacterWidget, CreateCharacterWidgetBaseClass = loadUiType('ui/CreateCharacterWidget.ui')
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtWidgets import QMessageBox
 from jgrpg.model import GlobalData
 
-from random import gauss, uniform
+from random import gauss, uniform, choice
 
 attributes = (
     'strength',
@@ -20,27 +21,52 @@ def attribute_roll():
     return uniform(-2,+2) + uniform(-2,+2) + uniform(-2,+2)
     
 
-class CreateCharacterDialog(
-        CreateCharacterDialogBaseClass,
-        ui_CreateCharacterDialog
+class CreateCharacterWidget(
+        CreateCharacterWidgetBaseClass,
+        ui_CreateCharacterWidget
 ):
 
     attributeChanged = pyqtSignal('QString', int)
     
-    def __init__(self):
-        super(CreateCharacterDialog, self).__init__()
+    def __init__(self, race=None):
+        super(CreateCharacterWidget, self).__init__()
 
         self.setupUi(self)
         self.attributeChanged.connect(self.updateAttribute)
 
-    def show(self):
-        super(CreateCharacterDialog, self).show()
+        self.selectRaceComboBox.currentIndexChanged.connect(self.race_changed)
+        self.race_changed(0)
+
+        self.genderButtonGroup.setId(self.maleRadioButton, 1)
+        self.genderButtonGroup.setId(self.femaleRadioButton, 2)
+
+        if race:
+            self.selectRaceComboBox.setRace(race)
 
         # clear the attributes
         self.attr = dict()
 
         # Reroll all of them
         self.rerollAll()
+
+
+    def race_changed(self, index):
+        print("race changed")
+        if self.selectRaceComboBox.itemData(index, Qt.UserRole) is not None:
+            self.randomNamePushButton.setEnabled(True)
+        
+
+    def randomizeName(self):
+        race = self.selectRaceComboBox.currentData(Qt.UserRole)
+        if not race:
+            print("No race")
+            return
+
+        gender = self.genderButtonGroup.checkedId()
+
+        name = race.generate_name(male=gender==1, female=gender==2)
+
+        self.nameLineEdit.setText(name)
 
     def rerollAll(self):
         for attr in attributes:
@@ -67,4 +93,12 @@ class CreateCharacterDialog(
         }
         GlobalData.createCharacter(**data)
 
-        super(CreateCharacterDialog, self).accept()
+        self.parent().close()
+
+    def reject(self):
+        self.parent().close()
+
+
+
+
+	

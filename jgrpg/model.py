@@ -3,6 +3,8 @@ import json
 from PyQt5.QtCore import pyqtSignal, QObject
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
+from random import choice, uniform
+
 class Character(QObject):
     """A character is any creature."""
 
@@ -41,6 +43,58 @@ class Race(QObject):
             "female_names": self.female_names,
             "family_names": self.family_names,
         }
+
+    def generate_name(self, *, male=False, female=False):
+        first_names = None
+        if male:
+            first_names = self.male_names
+        elif female:
+            first_names = self.female_names
+        else:
+            first_names = self.male_names + self.female_names
+
+
+        name = "{} {}".format(
+                self.choose_name(first_names),
+                self.choose_name(self.family_names))
+
+        return name.title()
+
+    @staticmethod
+    def choose_name(names):
+        if not names:
+            return "Fred"
+
+        # Sort the names
+        prefixes = []
+        suffixes = []
+        whole_names = []
+        for name in names:
+            if name.startswith('-'):
+                suffixes.append(name[1:])
+            elif name.endswith('-'):
+                prefixes.append(name[:-1])
+            else:
+                whole_names.append(name)
+
+        # How many of each?
+        combos = len(prefixes) * len(suffixes)
+        print("prefixes={}, suffixes={}, combos={}".format(
+            prefixes, suffixes, combos))
+
+        # Whole or composed names?
+        which = uniform(0, combos+len(whole_names))
+        print("which={}, combos={}, which > combos={}".format(
+            which,
+            combos,
+            which > combos))
+        if which > combos:
+            print("Whole")
+            return choice(whole_names)
+        else:
+            print("composed")
+            return choice(prefixes)+choice(suffixes)
+
 
 class Skill(QObject):
     """A skill is something creatures can learn."""

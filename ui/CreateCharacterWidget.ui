@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Create Character</string>
   </property>
-  <property name="sizeGripEnabled">
+  <property name="sizeGripEnabled" stdset="0">
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -27,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>589</width>
-        <height>496</height>
+        <width>587</width>
+        <height>611</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -49,7 +49,21 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="nameLineEdit"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLineEdit" name="nameLineEdit"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="randomNamePushButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
@@ -71,6 +85,46 @@
         <widget class="SelectRaceComboBox" name="selectRaceComboBox"/>
        </item>
        <item row="2" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Gender:</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="labelClass" stdset="0">
+          <string>fieldName</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QRadioButton" name="maleRadioButton">
+           <property name="text">
+            <string>Male</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">genderButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="femaleRadioButton">
+           <property name="text">
+            <string>Female</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">genderButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Attributes:</string>
@@ -86,7 +140,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <layout class="QGridLayout" name="gridLayout">
@@ -276,7 +330,7 @@
          </item>
         </layout>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Skills:</string>
@@ -292,10 +346,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QTreeView" name="skillTreeView"/>
        </item>
-       <item row="4" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Personality:</string>
@@ -311,10 +365,10 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="5" column="1">
         <widget class="QTreeView" name="personalityTreeView"/>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
           <string>History:</string>
@@ -330,7 +384,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="6" column="1">
         <widget class="QTextEdit" name="historyTextEdit"/>
        </item>
       </layout>
@@ -361,12 +415,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>295</x>
-     <y>314</y>
+     <x>301</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -377,12 +431,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>295</x>
-     <y>320</y>
+     <x>301</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -393,12 +447,12 @@
   <connection>
    <sender>rerollStrengthPushButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollStrength()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>76</y>
+     <x>333</x>
+     <y>118</y>
     </hint>
     <hint type="destinationlabel">
      <x>396</x>
@@ -409,12 +463,12 @@
   <connection>
    <sender>rerollStrengthPushButton_2</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollDexterity()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>107</y>
+     <x>333</x>
+     <y>184</y>
     </hint>
     <hint type="destinationlabel">
      <x>395</x>
@@ -425,12 +479,12 @@
   <connection>
    <sender>rerollStrengthPushButton_3</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollConstitution()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>276</x>
-     <y>128</y>
+     <x>333</x>
+     <y>222</y>
     </hint>
     <hint type="destinationlabel">
      <x>396</x>
@@ -441,12 +495,12 @@
   <connection>
    <sender>rerollStrengthPushButton_4</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollIntelligence()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>163</y>
+     <x>333</x>
+     <y>259</y>
     </hint>
     <hint type="destinationlabel">
      <x>395</x>
@@ -457,12 +511,12 @@
   <connection>
    <sender>rerollStrengthPushButton_5</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollWisdom()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>279</x>
-     <y>190</y>
+     <x>333</x>
+     <y>296</y>
     </hint>
     <hint type="destinationlabel">
      <x>396</x>
@@ -473,12 +527,12 @@
   <connection>
    <sender>rerollStrengthPushButton_6</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollCharisma()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>219</y>
+     <x>333</x>
+     <y>333</y>
     </hint>
     <hint type="destinationlabel">
      <x>394</x>
@@ -489,12 +543,12 @@
   <connection>
    <sender>rerollAllPushButton_8</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Widget</receiver>
    <slot>rerollAll()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>300</x>
-     <y>272</y>
+     <x>333</x>
+     <y>370</y>
     </hint>
     <hint type="destinationlabel">
      <x>390</x>
@@ -502,8 +556,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>randomNamePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>randomizeName()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>533</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
+  <slot>accept()</slot>
+  <slot>reject()</slot>
   <slot>rerollStrength()</slot>
   <slot>rerollDexterity()</slot>
   <slot>rerollConstitution()</slot>
@@ -511,5 +583,9 @@
   <slot>rerollWisdom()</slot>
   <slot>rerollCharisma()</slot>
   <slot>rerollAll()</slot>
+  <slot>randomizeName()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="genderButtonGroup"/>
+ </buttongroups>
 </ui>
