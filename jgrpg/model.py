@@ -18,10 +18,19 @@ class Character(QObject):
 class Race(QObject):
     """A race is a type of creature."""
     removed  = pyqtSignal()
+    changed = pyqtSignal()
     
-    def __init__(self, *, name=""):
+    def __init__(self, **data):
         super(Race, self).__init__()
+        self._update(**data)
+
+    def update(self, **data):
+        self._update(**data)
+        self.changed.emit()
+
+    def _update(self, *, name=""):
         self.name = name
+
 
     def json(self):
         return {
@@ -136,7 +145,6 @@ class GlobalDataClass(QObject):
         self.personalities[:] = [Personality(**data)
             for data in personalities]
         self.backgrounds[:] = [Background(**data) for data in backgrounds]
-        print(self.backgrounds)
 
         self.characters_reset.emit()
         self.races_reset.emit()

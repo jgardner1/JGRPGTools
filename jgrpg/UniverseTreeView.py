@@ -1,11 +1,10 @@
-from PyQt5.QtWidgets import QTreeView, QMessageBox
+from PyQt5.QtWidgets import QTreeView, QMessageBox, QMdiSubWindow
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
 from jgrpg.model import GlobalData, Character, Race, Skill, Personality
 
 import __main__
-from jgrpg.ViewRaceWidget import ViewRaceWidget
 
 class UniverseTreeView(QTreeView):
 
@@ -99,20 +98,10 @@ class UniverseTreeView(QTreeView):
 
     def item_activated(self, index):
         item = index.data(Qt.UserRole)
-        mdiArea = __main__.main_window.mdiArea
+        mw = __main__.main_window
 
         if isinstance(item, Race):
-            windows = mdiArea.subWindowList()
-            for window in windows:
-                widget = window.widget()
-                if isinstance(widget, ViewRaceWidget) and widget.race is item:
-                    mdiArea.setActiveSubWindow(window)
-                    break
-            else:
-                widget = ViewRaceWidget(item)
-                window = mdiArea.addSubWindow(widget)
-                item.removed.connect(window.close)
-                window.show()
+            mw.viewRace(item)
 
         elif isinstance(item, Character):
             print("character")
