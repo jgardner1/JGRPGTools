@@ -18,10 +18,16 @@ class CreateRaceWidget(
 
         if race:
             self.nameLineEdit.setText(race.name)
+            self.maleNamesTextEdit.setPlainText("\n".join(race.male_names))
+            self.femaleNamesTextEdit.setPlainText("\n".join(race.female_names))
+            self.familyNamesTextEdit.setPlainText("\n".join(race.family_names))
 
     def accept(self):
         data = {
             "name":self.nameLineEdit.text().strip(),
+            "male_names":self.maleNamesTextEdit.toPlainText().strip().split(),
+            "female_names":self.femaleNamesTextEdit.toPlainText().strip().split(),
+            "family_names":self.familyNamesTextEdit.toPlainText().strip().split(),
         }
         if self.race:
             print("Updating a race")

@@ -28,13 +28,18 @@ class Race(QObject):
         self._update(**data)
         self.changed.emit()
 
-    def _update(self, *, name=""):
+    def _update(self, *, name="", male_names=[], female_names=[], family_names=[]):
         self.name = name
-
+        self.male_names = male_names
+        self.female_names = female_names
+        self.family_names = family_names
 
     def json(self):
         return {
             'name':self.name,
+            "male_names": self.male_names,
+            "female_names": self.female_names,
+            "family_names": self.family_names,
         }
 
 class Skill(QObject):
@@ -122,7 +127,7 @@ class GlobalDataClass(QObject):
         self.filename = None
 
     def open(self, filename):
-        elf.load_from_json(filename)
+        self.load_from_json(filename)
 
         if filename != self.filename:
             self.filename = filename
