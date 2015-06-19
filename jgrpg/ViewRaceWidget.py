@@ -2,6 +2,7 @@ from PyQt5.uic import loadUiType
 
 ui_ViewRaceWidget, ViewRaceWidgetBaseClass = loadUiType('ui/ViewRaceWidget.ui')
 
+import __main__
 
 class ViewRaceWidget(
         ViewRaceWidgetBaseClass,
@@ -22,3 +23,15 @@ class ViewRaceWidget(
         self.nameValueLabel.setText(race.name)
         
         race.removed.connect(self.close)
+
+    def createCharacter(self):
+        print("Create character")
+        mw = __main__.main_window
+        dialog = mw.createCharacter()
+        dialog.selectRaceComboBox.setRace(self.race)
+        
+    def copyRace(self):
+        print("Copy race")
+        
+    def editRace(self):
+        print("edit race")
