@@ -23,16 +23,16 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
 
     def createCharacter(self):
-        self.modelessDialog(CreateCharacterDialog)
+        return self.modelessDialog(CreateCharacterDialog)
 
     def createRace(self):
-        self.modelessDialog(CreateRaceDialog)
+        return self.modelessDialog(CreateRaceDialog)
 
     def createSkill(self):
-        self.modelessDialog(CreateSkillDialog)
+        return self.modelessDialog(CreateSkillDialog)
 
     def createPersonality(self):
-        self.modelessDialog(CreatePersonalityDialog)
+        return self.modelessDialog(CreatePersonalityDialog)
 
     def modelessDialog(self, DialogClass):
         name = DialogClass.__name__
@@ -44,6 +44,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         dialog.show()
         dialog.raise_()
         dialog.activateWindow()
+        
+        return dialog
 
 
     def newUniverse(self):

@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtCore import Qt
 
 from jgrpg.model import GlobalData
 
@@ -22,5 +23,18 @@ class SelectRaceComboBox(QComboBox):
         model.clear()
 
         root_item = model.invisibleRootItem()
-        for _ in GlobalData.races:
-            root_item.appendRow(QStandardItem(_.name))
+        for race in GlobalData.races:
+            item = QStandardItem(race.name)
+            item.setData(race, Qt.UserRole)
+            root_item.appendRow(item)
+            
+    def setRace(self, race):
+        print("setRace({})".format(race))
+        
+        count = self.count()        
+        for i in range(count):
+            if self.itemData(i, Qt.UserRole) is race:
+                self.setCurrentIndex(i)
+                break
+        else:
+            print("Couldn't find that race...")
