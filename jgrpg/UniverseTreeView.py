@@ -35,7 +35,7 @@ class UniverseTreeView(QTreeView):
         root_item.appendRow(self.skills_item)
         root_item.appendRow(self.personalities_item)
         root_item.appendRow(self.backgrounds_item)
-        
+
         self.init_all()
 
         GlobalData.character_added.connect(self.init_characters)
@@ -57,7 +57,7 @@ class UniverseTreeView(QTreeView):
         GlobalData.background_added.connect(self.init_backgrounds)
         GlobalData.background_removed.connect(self.init_backgrounds)
         GlobalData.backgrounds_reset.connect(self.init_backgrounds)
-        
+
         self.activated.connect(self.item_activated)
 
 
@@ -68,23 +68,26 @@ class UniverseTreeView(QTreeView):
         self.init_personalities()
         self.init_backgrounds()
 
-    def _set_items(self, item, data):
+    def _set_items(self, item, data, ItemClass=QStandardItem):
         item.setRowCount(0)
         subitems = []
         for d in sorted(data, key=lambda r: r.name.lower()):
-            subitem = QStandardItem(d.name)
-            subitem.setEditable(False)
-            subitem.setData(d, Qt.UserRole)
-            subitems.append(subitem)
+            if ItemClass is QStandardItem:
+                subitem = QStandardItem(d.name)
+                subitem.setEditable(False)
+                subitem.setData(d, Qt.UserRole)
+                subitems.append(subitem)
+            else:
+                subitems.append(ItemClass(d))
 
         item.appendRows(subitems)
-            
+
 
     def init_characters(self):
         self._set_items(self.characters_item, GlobalData.characters)
 
     def init_races(self):
-        self._set_items(self.races_item, GlobalData.races)
+        self._set_items(self.races_item, GlobalData.races, RaceItem)
 
     def init_skills(self):
         self._set_items(self.skills_item, GlobalData.skills)
@@ -118,14 +121,14 @@ class UniverseTreeView(QTreeView):
             self.delete_current_item()
         else:
             super(UniverseTreeView, self).keyPressEvent(event)
-        
+
     def delete_current_item(self):
         index = self.currentIndex()
         item = index.data(Qt.UserRole)
-        
+
         if not item:
             return
-        
+
         mbox = QMessageBox(
             QMessageBox.Warning,
             "Confirm Delete",
@@ -134,4 +137,19 @@ class UniverseTreeView(QTreeView):
         ret = mbox.exec_()
         if ret == QMessageBox.Yes:
             GlobalData.deleteRace(item)
-    
+
+
+class RaceItem(QStandardItem):
+
+        def __init__(self, race):
+            super(RaceItem, self).__init__()
+            self.race = race
+
+            self.setEditable(False)
+            self.setData(race, Qt.UserRole)
+
+            self.race.changed.connect(self.update)
+            self.update()
+
+        def update(self):
+            self.setData(self.race.name, Qt.DisplayRole)

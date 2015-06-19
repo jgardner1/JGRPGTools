@@ -1,69 +1,39 @@
 {
+  "characters": [
+    {
+      "name": "heian"
+    }
+  ],
+  "skills": [],
   "races": [
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Human",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Dwarf, Mountain",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Dwarf, Hill",
       "male_names": [
         "Bob",
         "Bill"
-      ]
-    },
-    {
-      "family_names": [],
+      ],
       "female_names": [],
-      "name": "Elf, High",
-      "male_names": []
+      "family_names": []
     },
     {
-      "family_names": [
-        "Amakiir",
-        "(Gemflower)"
-      ],
-      "female_names": [
-        "Adrie",
-        "Althaea",
-        "Anastrianna",
-        "Andraste",
-        "Antinua",
-        "Bethrynna",
-        "Birel",
-        "Caelynn",
-        "Drusilia",
-        "Enna",
-        "Felosial",
-        "Ielenia",
-        "Jelenneth",
-        "Keyleth",
-        "Leshanna",
-        "Lia",
-        "Meriele",
-        "Mialee",
-        "Naivarra",
-        "Quellenna",
-        "Quillathe",
-        "Sariel",
-        "Shanairra",
-        "Shava",
-        "Silaqui",
-        "Theirastra",
-        "Thia",
-        "Vadania",
-        "Valanthe",
-        "Xanaphia"
-      ],
+      "name": "Elf, High",
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
+    },
+    {
       "name": "Elf, Drow",
       "male_names": [
         "Ad-",
@@ -113,55 +83,85 @@
         "Tharivol",
         "Theren",
         "Varis"
+      ],
+      "female_names": [
+        "Adrie",
+        "Althaea",
+        "Anastrianna",
+        "Andraste",
+        "Antinua",
+        "Bethrynna",
+        "Birel",
+        "Caelynn",
+        "Drusilia",
+        "Enna",
+        "Felosial",
+        "Ielenia",
+        "Jelenneth",
+        "Keyleth",
+        "Leshanna",
+        "Lia",
+        "Meriele",
+        "Mialee",
+        "Naivarra",
+        "Quellenna",
+        "Quillathe",
+        "Sariel",
+        "Shanairra",
+        "Shava",
+        "Silaqui",
+        "Theirastra",
+        "Thia",
+        "Vadania",
+        "Valanthe",
+        "Xanaphia"
+      ],
+      "family_names": [
+        "Amakiir",
+        "(Gemflower)"
       ]
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Elf, Wood",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Dragonborn",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Gnome, Forest",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Gnome, Rock",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Half-Elf",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Half-Orc",
-      "male_names": []
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     },
     {
-      "family_names": [],
-      "female_names": [],
       "name": "Tiefling",
-      "male_names": []
-    }
-  ],
-  "skills": [],
-  "characters": [
-    {
-      "name": "heian"
+      "male_names": [],
+      "female_names": [],
+      "family_names": []
     }
   ],
   "personalities": []
