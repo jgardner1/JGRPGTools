@@ -3,7 +3,8 @@ from PyQt5.uic import loadUiType
 ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 
 from jgrpg.CreateCharacterDialog import CreateCharacterDialog
-from jgrpg.CreateRaceDialog import CreateRaceDialog
+from jgrpg.CreateRaceWidget import CreateRaceWidget
+from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.CreateSkillDialog import CreateSkillDialog
 from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 
@@ -22,11 +23,38 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         self.dialogs = {}
 
 
-    def createCharacter(self):
-        return self.modelessDialog(CreateCharacterDialog)
+    def createCharacter(self, race=None):
+        dialog = self.modelessDialog(CreateCharacterDialog)
+        if race:
+            dialog.selectRaceComboBox.setRace(race)
+        return dialog
 
     def createRace(self):
-        return self.modelessDialog(CreateRaceDialog)
+        window = self.mdiArea.addSubWindow(CreateRaceWidget())
+        window.setWindowTitle("Create Race")
+        window.show()
+        return window
+
+    def editRace(self, race):
+        for window in self.mdiArea.subWindowList():
+            widget = window.widget()
+            if isinstance(widget, CreateRaceWidget) and widget.race is race:
+                self.mdiArea.setActiveSubWindow(window)
+                break
+        else:
+            window = self.mdiArea.addSubWindow(CreateRaceWidget(race))
+            window.setWindowTitle("Edit Race")
+            window.show()
+
+    def viewRace(self, race):
+        for window in self.mdiArea.subWindowList():
+            widget = window.widget()
+            if isinstance(widget, ViewRaceWidget) and widget.race is race:
+                self.mdiArea.setActiveSubWindow(window)
+                break
+        else:
+            window = self.mdiArea.addSubWindow(ViewRaceWidget(race))
+            window.show()
 
     def createSkill(self):
         return self.modelessDialog(CreateSkillDialog)
