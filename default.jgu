@@ -1,70 +1,36 @@
 {
-  "personalities": [],
-  "characters": [
-    {
-      "name": "heian"
-    }
-  ],
-  "skills": [],
   "races": [
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Human",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Dwarf, Mountain",
-      "family_names": []
+      "male_names": []
     },
     {
+      "family_names": [],
+      "female_names": [],
+      "name": "Dwarf, Hill",
       "male_names": [
         "Bob",
         "Bill"
-      ],
-      "female_names": [],
-      "name": "Dwarf, Hill",
-      "family_names": []
+      ]
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Elf, High",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [
-        "Adran",
-        "Aelar",
-        "Aramil",
-        "Arannis",
-        "Aust",
-        "Beir",
-        "Berrian",
-        "Carric",
-        "Enialis",
-        "Erdan",
-        "Erevan",
-        "Galinndan",
-        "Hadarai",
-        "Heian",
-        "Himo",
-        "Immerral",
-        "Ivellios",
-        "Laucian",
-        "Mindartis",
-        "Paelias",
-        "Peren",
-        "Quarion",
-        "Riardon",
-        "Rolen",
-        "Soveliss",
-        "Thamior",
-        "Tharivol",
-        "Theren",
-        "Varis"
+      "family_names": [
+        "Amakiir",
+        "(Gemflower)"
       ],
       "female_names": [
         "Adrie",
@@ -99,52 +65,104 @@
         "Xanaphia"
       ],
       "name": "Elf, Drow",
-      "family_names": [
-        "Amakiir",
-        "(Gemflower)"
+      "male_names": [
+        "Ad-",
+        "Af-",
+        "Ag-",
+        "Al-",
+        "Ael-",
+        "Am-",
+        "An-",
+        "Alth-",
+        "Ar-",
+        "-ran",
+        "-amil",
+        "-dan",
+        "-nnis",
+        "-lar",
+        "-lin",
+        "-ric",
+        "-ril",
+        "-ann",
+        "Adran",
+        "Aelar",
+        "Aramil",
+        "Arannis",
+        "Aust",
+        "Beir",
+        "Berrian",
+        "Carric",
+        "Enialis",
+        "Erdan",
+        "Erevan",
+        "Galinndan",
+        "Hadarai",
+        "Heian",
+        "Himo",
+        "Immerral",
+        "Ivellios",
+        "Laucian",
+        "Mindartis",
+        "Paelias",
+        "Peren",
+        "Quarion",
+        "Riardon",
+        "Rolen",
+        "Soveliss",
+        "Thamior",
+        "Tharivol",
+        "Theren",
+        "Varis"
       ]
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Elf, Wood",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Dragonborn",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Gnome, Forest",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Gnome, Rock",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Half-Elf",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Half-Orc",
-      "family_names": []
+      "male_names": []
     },
     {
-      "male_names": [],
+      "family_names": [],
       "female_names": [],
       "name": "Tiefling",
-      "family_names": []
+      "male_names": []
     }
-  ]
+  ],
+  "skills": [],
+  "characters": [
+    {
+      "name": "heian"
+    }
+  ],
+  "personalities": []
 }

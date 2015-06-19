@@ -2,7 +2,7 @@ from PyQt5.uic import loadUiType
 
 ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 
-from jgrpg.CreateCharacterDialog import CreateCharacterDialog
+from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CreateRaceWidget import CreateRaceWidget
 from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.CreateSkillDialog import CreateSkillDialog
@@ -24,10 +24,10 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
 
     def createCharacter(self, race=None):
-        dialog = self.modelessDialog(CreateCharacterDialog)
-        if race:
-            dialog.selectRaceComboBox.setRace(race)
-        return dialog
+        window = self.mdiArea.addSubWindow(CreateCharacterWidget(race))
+        window.setWindowTitle("Create Character")
+        window.show()
+        return window
 
     def createRace(self):
         window = self.mdiArea.addSubWindow(CreateRaceWidget())
