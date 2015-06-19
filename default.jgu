@@ -40,5 +40,16 @@
     }
   ],
   "skills":[],
-  "personalities":[]
+  "personalities":[],
+  "backgrounds":[
+    {
+      "name":"Acolyte"
+    },
+    {
+      "name":"Merchant"
+    },
+    {
+      "name":"Sage"
+    }
+  ]
 }

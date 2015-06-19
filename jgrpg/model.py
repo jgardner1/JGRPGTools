@@ -53,6 +53,15 @@ class Personality(QObject):
             'name':self.name,
         }
 
+class Background(QObject):
+    def __init__(self, *, name=""):
+        super(Background, self).__init__()
+        self.name = name
+
+    def json(self):
+        return {
+            'name':self.name,
+        }
 
 class GlobalDataClass(QObject):
     """Stores the global data available everywhere in the app."""
@@ -80,6 +89,10 @@ class GlobalDataClass(QObject):
     personality_removed = pyqtSignal(int)
     personalities_reset = pyqtSignal()
 
+    background_added = pyqtSignal()
+    background_removed = pyqtSignal(int)
+    backgrounds_reset = pyqtSignal()
+
     def __init__(self):
         super(GlobalDataClass, self).__init__()
         self.filename = None
@@ -90,6 +103,7 @@ class GlobalDataClass(QObject):
         self.races = []
         self.skills = []
         self.personalities = []
+        self.backgrounds = []
 
         self.new()
 
@@ -113,13 +127,16 @@ class GlobalDataClass(QObject):
             characters=[],
             races=[],
             skills=[],
-            personalities=[]
+            personalities=[],
+            backgrounds=[]
     ):
         self.characters[:] = [Character(**data) for data in characters]
         self.races[:] = [Race(**data) for data in races]
         self.skills[:] = [Skill(**data) for data in skills]
         self.personalities[:] = [Personality(**data)
             for data in personalities]
+        self.backgrounds[:] = [Background(**data) for data in backgrounds]
+        print(self.backgrounds)
 
         self.characters_reset.emit()
         self.races_reset.emit()
@@ -171,6 +188,12 @@ class GlobalDataClass(QObject):
         self.personalities.append(personality)
         self.personality_added.emit()
         return personality
+
+    def createBackground(self, **data):
+        background = Background(**data)
+        self.backgrounds.append(background)
+        self.background_added.emit()
+        return background
 
 
 GlobalData = GlobalDataClass()

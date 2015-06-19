@@ -28,11 +28,15 @@ class UniverseTreeView(QTreeView):
         self.personalities_item = QStandardItem("Personalities")
         self.personalities_item.setEditable(False)
 
+        self.backgrounds_item = QStandardItem("Backgrounds")
+        self.backgrounds_item.setEditable(False)
+
         root_item.appendRow(self.characters_item)
         root_item.appendRow(self.races_item)
         root_item.appendRow(self.skills_item)
         root_item.appendRow(self.personalities_item)
-
+        root_item.appendRow(self.backgrounds_item)
+        
         self.init_all()
 
         GlobalData.character_added.connect(self.init_characters)
@@ -51,6 +55,10 @@ class UniverseTreeView(QTreeView):
         GlobalData.personality_removed.connect(self.init_personalities)
         GlobalData.personalities_reset.connect(self.init_personalities)
 
+        GlobalData.background_added.connect(self.init_backgrounds)
+        GlobalData.background_removed.connect(self.init_backgrounds)
+        GlobalData.backgrounds_reset.connect(self.init_backgrounds)
+        
         self.activated.connect(self.item_activated)
 
 
@@ -59,6 +67,7 @@ class UniverseTreeView(QTreeView):
         self.init_races()
         self.init_skills()
         self.init_personalities()
+        self.init_backgrounds()
 
     def _set_items(self, item, data):
         item.setRowCount(0)
@@ -83,6 +92,10 @@ class UniverseTreeView(QTreeView):
 
     def init_personalities(self):
         self._set_items(self.personalities_item, GlobalData.personalities)
+
+    def init_backgrounds(self):
+        print("Hello!")
+        self._set_items(self.backgrounds_item, GlobalData.backgrounds)
 
     def item_activated(self, index):
         item = index.data(Qt.UserRole)
