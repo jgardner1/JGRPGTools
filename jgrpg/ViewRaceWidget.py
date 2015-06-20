@@ -30,6 +30,13 @@ class ViewRaceWidget(
         self.femaleNamesValueLabel.setText(", ".join(race.female_names))
         self.familyNamesValueLabel.setText(", ".join(race.family_names))
 
+        self.strengthValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('strength', 0.0)))
+        self.dexterityValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('dexterity', 0.0)))
+        self.constitutionValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('constitution', 0.0)))
+        self.intelligenceValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('intelligence', 0.0)))
+        self.wisdomValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('wisdom', 0.0)))
+        self.charismaValueLabel.setText("{:+0.1f}".format(race.attribute_modifiers.get('charisma', 0.0)))
+
     def removed(self):
         self.parent().close()
         

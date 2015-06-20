@@ -39,11 +39,25 @@ class CreateRaceWidget(
             self.maleNamesTextEdit.setPlainText("\n".join(race.male_names))
             self.femaleNamesTextEdit.setPlainText("\n".join(race.female_names))
             self.familyNamesTextEdit.setPlainText("\n".join(race.family_names))
+
+            self.strengthSpinBox.setValue(race.attribute_modifiers.get('strength', 0.0))
+            self.dexteritySpinBox.setValue(race.attribute_modifiers.get('dexterity', 0.0))
+            self.constitutionSpinBox.setValue(race.attribute_modifiers.get('constitution', 0.0))
+            self.intelligenceSpinBox.setValue(race.attribute_modifiers.get('intelligence', 0.0))
+            self.wisdomSpinBox.setValue(race.attribute_modifiers.get('wisdom', 0.0))
+            self.charismaSpinBox.setValue(race.attribute_modifiers.get('charisma', 0.0))
         else:
             self.nameLineEdit.setText("")
             self.maleNamesTextEdit.setPlainText("")
             self.femaleNamesTextEdit.setPlainText("")
             self.familyNamesTextEdit.setPlainText("")
+
+            self.strengthSpinBox.setValue(0.0)
+            self.dexteritySpinBox.setValue(0.0)
+            self.constitutionSpinBox.setValue(0.0)
+            self.intelligenceSpinBox.setValue(0.0)
+            self.wisdomSpinBox.setValue(0.0)
+            self.charismaSpinBox.setValue(0.0)
 
     def apply(self):
         data = {
@@ -51,6 +65,14 @@ class CreateRaceWidget(
             "male_names":self.maleNamesTextEdit.toPlainText().strip().split(),
             "female_names":self.femaleNamesTextEdit.toPlainText().strip().split(),
             "family_names":self.familyNamesTextEdit.toPlainText().strip().split(),
+            "attribute_modifiers":{
+                    "strength":self.strengthSpinBox.value(),
+                    "dexterity":self.dexteritySpinBox.value(),
+                    "constitution":self.constitutionSpinBox.value(),
+                    "intelligence":self.intelligenceSpinBox.value(),
+                    "wisdom":self.wisdomSpinBox.value(),
+                    "charisma":self.charismaSpinBox.value(),
+                },
         }
         if self.race:
             self.race.update(**data)
