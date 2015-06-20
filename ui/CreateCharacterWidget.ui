@@ -105,7 +105,7 @@
          <item>
           <widget class="QRadioButton" name="maleRadioButton">
            <property name="text">
-            <string>Male</string>
+            <string>Ma&amp;le</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">genderButtonGroup</string>
@@ -397,7 +397,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -412,38 +412,6 @@
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Widget</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>301</x>
-     <y>427</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Widget</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>301</x>
-     <y>427</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>rerollStrengthPushButton</sender>
    <signal>clicked()</signal>
@@ -572,10 +540,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>Widget</receiver>
+   <slot>clicked(QAbstractButton*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>230</x>
+     <y>412</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>198</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>accept()</slot>
-  <slot>reject()</slot>
+  <slot>clicked(QAbstractButton*)</slot>
   <slot>rerollStrength()</slot>
   <slot>rerollDexterity()</slot>
   <slot>rerollConstitution()</slot>
