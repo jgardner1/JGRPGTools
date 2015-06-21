@@ -29,8 +29,6 @@ class SelectRaceComboBox(QComboBox):
             root_item.appendRow(item)
             
     def setRace(self, race):
-        print("setRace({})".format(race))
-        
         count = self.count()        
         for i in range(count):
             if self.itemData(i, Qt.UserRole) is race:
@@ -38,3 +36,7 @@ class SelectRaceComboBox(QComboBox):
                 break
         else:
             print("Couldn't find that race...")
+
+    def race(self):
+        """Returns the currently selected race."""
+        return self.currentData(Qt.UserRole)
