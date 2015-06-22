@@ -28,7 +28,7 @@
         <x>0</x>
         <y>0</y>
         <width>586</width>
-        <height>472</height>
+        <height>595</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -122,9 +122,123 @@
            </attribute>
           </widget>
          </item>
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item row="3" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Size:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <layout class="QFormLayout" name="formLayout_2">
+         <property name="labelAlignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Height:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSlider" name="heightSlider">
+           <property name="minimum">
+            <number>-100</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Weight:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QSlider" name="weightSlider">
+           <property name="minimum">
+            <number>-100</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Randomize Height and Weight</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="sizeValueLabel">
+           <property name="styleSheet">
+            <string notr="true">font-weight: bold;</string>
+           </property>
+           <property name="text">
+            <string>5' 6&quot;, 100 lbs</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Attributes:</string>
@@ -140,7 +254,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="5" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <layout class="QGridLayout" name="gridLayout">
@@ -288,7 +402,7 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Skills:</string>
@@ -304,10 +418,10 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="6" column="1">
         <widget class="QTreeView" name="skillTreeView"/>
        </item>
-       <item row="5" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Personality:</string>
@@ -323,10 +437,10 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="7" column="1">
         <widget class="QTreeView" name="personalityTreeView"/>
        </item>
-       <item row="6" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
           <string>History:</string>
@@ -342,7 +456,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="8" column="1">
         <widget class="QTextEdit" name="historyTextEdit"/>
        </item>
       </layout>
@@ -377,8 +491,8 @@
    <slot>rerollAll()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>333</x>
-     <y>370</y>
+     <x>226</x>
+     <y>362</y>
     </hint>
     <hint type="destinationlabel">
      <x>390</x>
@@ -418,11 +532,62 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>randomizeSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>heightSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Widget</receiver>
+   <slot>setHeight(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>353</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>153</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>weightSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Widget</receiver>
+   <slot>setWeight(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>356</x>
+     <y>172</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>clicked(QAbstractButton*)</slot>
   <slot>rerollAll()</slot>
   <slot>randomizeName()</slot>
+  <slot>randomizeSize()</slot>
+  <slot>setHeight(int)</slot>
+  <slot>setWeight(int)</slot>
  </slots>
  <buttongroups>
   <buttongroup name="genderButtonGroup"/>

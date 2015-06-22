@@ -18,12 +18,20 @@ class Race(QObject):
             male_names=[],
             female_names=[],
             family_names=[],
-            attribute_modifiers={}):
+            attribute_modifiers={},
+            #         Avg   95%
+            height=[ 65.0,  9.5], # inched
+            weight=[160.0, 85.0], # lbs
+            m_f_ratio=1.0
+    ):
         self.name = name
         self.male_names = male_names
         self.female_names = female_names
         self.family_names = family_names
         self.attribute_modifiers = attribute_modifiers
+        self.height = height
+        self.weight = weight
+        self.m_f_ratio = m_f_ratio
 
     def json(self):
         return {
@@ -32,6 +40,9 @@ class Race(QObject):
             "female_names": self.female_names,
             "family_names": self.family_names,
             "attribute_modifiers": self.attribute_modifiers,
+            "height": self.height,
+            "weight": self.weight,
+            "m_f_ratio": self.m_f_ratio
         }
 
     def generate_name(self, *, male=False, female=False):
@@ -84,5 +95,27 @@ class Race(QObject):
             print("composed")
             return choice(prefixes)+choice(suffixes)
 
+    def generate_height_weight(self,
+            gender='M',
+            attrs={},
+            height=0.5,
+            weight=0.5,
+    ):
+        size_mod = pow(
+                sqrt(4.0/3.0),
+                attrs.get('strength') \
+                - attrs.get('dexterity'))
 
+        height = normal(self.height[0], self.height[1]/2.0)*size_mod
 
+        height_variance = height - self.height[0]
+
+        weight = normal(self.weight[0], self.weight[1]/2.0) \
+                * height_variance \
+                * height_variance
+
+        if gender.lower() in ('f', 'female'):
+            height = height/self.m_f_ratio
+            weight = weight/self.m_f_ratio
+
+        return (height, weight)

@@ -8,6 +8,7 @@ from jgrpg.model import GlobalData
 from jgrpg.model.attributes import attributes
 
 from random import gauss, uniform, choice
+from math import sqrt
 
 from collections import defaultdict
 
@@ -34,6 +35,8 @@ class CreateCharacterWidget(
         #                   + total, roll, racial_modifier
         self.attr = defaultdict(lambda: defaultdict(lambda: 0.0))
         self.race = None
+        self.height_variance = 0.0
+        self.weight_variance = 0.0
 
         # Setup the UI elements
         self.setupUi(self)
@@ -41,7 +44,9 @@ class CreateCharacterWidget(
         # Signals
         self.rollChanged.connect(self.recalculate_attribute)
         self.raceChanged.connect(self.recalculate_attributes)
+        self.raceChanged.connect(self.recalculate_size)
         self.attributeChanged.connect(self.label_attribute)
+        self.attributeChanged.connect(self.recalculate_size_for_attribute_changed)
 
         self.selectRaceComboBox.currentIndexChanged.connect(self.selectRaceComboBox_onchange)
         self.selectRaceComboBox_onchange(self.selectRaceComboBox.currentIndex())
@@ -142,7 +147,58 @@ class CreateCharacterWidget(
     def clicked(self, button):
         pass
 
+    def randomizeSize(self):
+        self.heightSlider.setValue(0)
+        self.weightSlider.setValue(0)
 
 
+    def setHeight(self, height):
+        self.height_variance = height/100.0
+        self.recalculate_size()
 
-	
+    def setWeight(self, weight):
+        self.weight_variance = weight/100.0
+        self.recalculate_size()
+
+    def recalculate_size_for_attribute_changed(self, attr):
+        if attr in ('strength', 'dexterity'):
+            self.recalculate_size()
+
+    def recalculate_size(self):
+        attr_mod = pow(
+                sqrt(4./3.),
+                (self.attr['strength']['total']
+                - self.attr['dexterity']['total'])/4.0)
+
+        height = (self.race.height[0]
+                + self.race.height[1]*self.height_variance
+            )
+
+        height_factor = height / self.race.height[0]
+
+        weight = (self.race.weight[0]
+                + self.race.weight[1]*self.weight_variance)*height_factor*attr_mod
+
+        self.sizeValueLabel.setText("{:0.0f}' {:0.0f}\", {:0.0f} lbs".format(
+            height//12, height%12,
+            int(weight+0.5)))
+
+        self.sizeValueLabel.setToolTip("""
+            height factor: {:+0.2f}<br/>
+            race avg. height: {}"<br/>
+            race height var.: {}"<br/>
+            height var. factror: {:+0.2f}<br/>
+            attribute modifier: {:0.2f}<br/>
+            weight factor: {:+0.2f}<br/>
+            race avg. weight: {} lbs.<br/>
+            race weight var.: {} lbs.
+        """.format(
+            attr_mod,
+            self.height_variance,
+            self.race.height[0],
+            self.race.height[1],
+            height_factor,
+            self.weight_variance,
+            self.race.weight[0],
+            self.race.weight[1],
+        ))
