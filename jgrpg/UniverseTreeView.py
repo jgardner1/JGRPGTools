@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTreeView, QMessageBox, QMdiSubWindow
+from PyQt5.QtWidgets import QTreeView, QMessageBox, QMdiSubWindow, QMenu
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
@@ -103,17 +103,8 @@ class UniverseTreeView(QTreeView):
         item = index.data(Qt.UserRole)
         mw = __main__.main_window
 
-        if isinstance(item, Race):
-            mw.viewRace(item)
+        mw.viewObject(item)
 
-        elif isinstance(item, Character):
-            print("character")
-        elif isinstance(item, Skill):
-            print("skill")
-        elif isinstance(item, Personality):
-            print("personality")
-        else:
-            print("none of the above")
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -129,14 +120,16 @@ class UniverseTreeView(QTreeView):
         if not item:
             return
 
-        mbox = QMessageBox(
-            QMessageBox.Warning,
-            "Confirm Delete",
-            "Do you want to delete {} ({})?".format(item.name, item.__class__.__name__),
-            QMessageBox.Yes | QMessageBox.Cancel)
-        ret = mbox.exec_()
-        if ret == QMessageBox.Yes:
-            GlobalData.deleteRace(item)
+        __main__.main_window.deleteObject(item)
+
+    def contextMenuEvent(self, event):
+        print("Context menu")
+        index = self.indexAt(event.pos())
+        if index.isValid():
+            target = index.data(Qt.UserRole)
+            if target:
+                menu = ContextMenu(target)
+                menu.exec(event.globalPos())
 
 
 class RaceItem(QStandardItem):
@@ -153,3 +146,38 @@ class RaceItem(QStandardItem):
 
         def update(self):
             self.setData(self.race.name, Qt.DisplayRole)
+
+class ContextMenu(QMenu):
+
+    def __init__(self, target):
+        self.target = target
+        super(ContextMenu, self).__init__()
+
+        self.viewAction = self.addAction("View")
+        self.viewAction.triggered.connect(self.view)
+
+        self.addAction("Copy")
+
+        self.deleteAction = self.addAction("Delete")
+        self.deleteAction.triggered.connect(self.delete)
+
+        self.editAction = self.addAction("Edit")
+        self.editAction.triggered.connect(self.edit)
+
+        if isinstance(target, Race):
+            self.createAction = self.addAction("Create Character from This Race")
+            self.createAction.triggered.connect(self.create_character_from_race)
+
+    def view(self):
+        __main__.main_window.viewObject(self.target)
+
+    def edit(self):
+        __main__.main_window.editObject(self.target)
+
+    def delete(self):
+        __main__.main_window.deleteObject(self.target)
+
+    def create_character_from_race(self):
+        mw = __main__.main_window
+        mw.createCharacter(self.target)
+

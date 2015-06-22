@@ -8,10 +8,10 @@ from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.CreateSkillDialog import CreateSkillDialog
 from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtCore import QCoreApplication
 
-from jgrpg.model import GlobalData
+from jgrpg.model import GlobalData, Race
 
 class MainWindow(MainWindowBaseClass, ui_MainWindow):
     
@@ -35,6 +35,21 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         window.show()
         return window
 
+    def editObject(self, obj):
+        """Edits an unknown object to the mdiArea."""
+        if isinstance(obj, Race):
+            self.editRace(obj)
+
+        elif isinstance(obj, Character):
+            print("character")
+        elif isinstance(obj, Skill):
+            print("skill")
+        elif isinstance(obj, Personality):
+            print("personality")
+        else:
+            print("none of the above")
+
+
     def editRace(self, race):
         for window in self.mdiArea.subWindowList():
             widget = window.widget()
@@ -46,6 +61,20 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
             window.setWindowTitle("Edit Race")
             window.show()
 
+    def viewObject(self, obj):
+        """Shows an unknown object to the mdiArea."""
+        if isinstance(obj, Race):
+            self.viewRace(obj)
+
+        elif isinstance(obj, Character):
+            print("character")
+        elif isinstance(obj, Skill):
+            print("skill")
+        elif isinstance(obj, Personality):
+            print("personality")
+        else:
+            print("none of the above")
+
     def viewRace(self, race):
         for window in self.mdiArea.subWindowList():
             widget = window.widget()
@@ -55,6 +84,32 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         else:
             window = self.mdiArea.addSubWindow(ViewRaceWidget(race))
             window.show()
+
+    def deleteObject(self, obj):
+        mbox = QMessageBox(
+            QMessageBox.Warning,
+            "Confirm Delete",
+            "Do you want to delete {} ({})?".format(obj.name, obj.__class__.__name__),
+            QMessageBox.Yes | QMessageBox.Cancel)
+        ret = mbox.exec_()
+        if ret != QMessageBox.Yes:
+            return
+
+        if isinstance(obj, Race):
+            self.deleteRace(obj)
+        elif isinstance(obj, Character):
+            print("character")
+        elif isinstance(obj, Skill):
+            print("skill")
+        elif isinstance(obj, Personality):
+            print("personality")
+        else:
+            print("none of the above")
+
+
+    def deleteRace(self, race):
+        GlobalData.deleteRace(race)
+
 
     def createSkill(self):
         return self.modelessDialog(CreateSkillDialog)
