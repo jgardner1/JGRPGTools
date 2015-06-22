@@ -5,112 +5,115 @@
       "name": "heian"
     }
   ],
-  "skills": [],
   "races": [
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.5,
         "charisma": 0.5,
         "wisdom": 0.5,
-        "strength": 0.5,
         "intelligence": 0.5,
-        "dexterity": 0.5
+        "strength": 0.5,
+        "dexterity": 0.5,
+        "constitution": 0.5
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Human"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Human",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 1.0,
         "charisma": 0.0,
         "wisdom": 0.0,
-        "strength": 1.0,
         "intelligence": 0.0,
-        "dexterity": 0.0
+        "strength": 1.0,
+        "dexterity": 0.0,
+        "constitution": 1.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Dwarf, Mountain"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Dwarf, Mountain",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 1.0,
         "charisma": 0.0,
         "wisdom": 0.5,
-        "strength": 0.0,
         "intelligence": 0.0,
-        "dexterity": 0.0
+        "strength": 0.0,
+        "dexterity": 0.0,
+        "constitution": 1.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [
         "Bob",
         "Bill"
       ],
-      "name": "Dwarf, Hill"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Dwarf, Hill",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
         "charisma": 0.0,
         "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 0.5,
-        "dexterity": 1.0
+        "strength": 0.0,
+        "dexterity": 1.0,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Elf, High"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Elf, High",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
-      "attribute_modifiers": {
-        "constitution": 0.0,
-        "charisma": 0.5,
-        "wisdom": 0.0,
-        "strength": 0.0,
-        "intelligence": 0.0,
-        "dexterity": 1.0
-      },
       "family_names": [
         "Amakiir",
         "(Gemflower)"
       ],
-      "female_names": [
-        "Adrie",
-        "Althaea",
-        "Anastrianna",
-        "Andraste",
-        "Antinua",
-        "Bethrynna",
-        "Birel",
-        "Caelynn",
-        "Drusilia",
-        "Enna",
-        "Felosial",
-        "Ielenia",
-        "Jelenneth",
-        "Keyleth",
-        "Leshanna",
-        "Lia",
-        "Meriele",
-        "Mialee",
-        "Naivarra",
-        "Quellenna",
-        "Quillathe",
-        "Sariel",
-        "Shanairra",
-        "Shava",
-        "Silaqui",
-        "Theirastra",
-        "Thia",
-        "Vadania",
-        "Valanthe",
-        "Xanaphia"
-      ],
+      "attribute_modifiers": {
+        "charisma": 0.5,
+        "wisdom": 0.0,
+        "intelligence": 0.0,
+        "strength": 0.0,
+        "dexterity": 1.0,
+        "constitution": 0.0
+      },
       "male_names": [
         "Ad-",
         "Af-",
@@ -160,133 +163,256 @@
         "Theren",
         "Varis"
       ],
-      "name": "Elf, Drow"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [
+        "Adrie",
+        "Althaea",
+        "Anastrianna",
+        "Andraste",
+        "Antinua",
+        "Bethrynna",
+        "Birel",
+        "Caelynn",
+        "Drusilia",
+        "Enna",
+        "Felosial",
+        "Ielenia",
+        "Jelenneth",
+        "Keyleth",
+        "Leshanna",
+        "Lia",
+        "Meriele",
+        "Mialee",
+        "Naivarra",
+        "Quellenna",
+        "Quillathe",
+        "Sariel",
+        "Shanairra",
+        "Shava",
+        "Silaqui",
+        "Theirastra",
+        "Thia",
+        "Vadania",
+        "Valanthe",
+        "Xanaphia"
+      ],
+      "m_f_ratio": 1.0,
+      "name": "Elf, Drow",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
         "charisma": 0.0,
         "wisdom": 0.5,
-        "strength": 0.0,
         "intelligence": 0.0,
-        "dexterity": 1.0
+        "strength": 0.0,
+        "dexterity": 1.0,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Elf, Wood"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Elf, Wood",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
         "charisma": 0.5,
         "wisdom": 0.0,
-        "strength": 1.0,
         "intelligence": 0.0,
-        "dexterity": 0.0
+        "strength": 1.0,
+        "dexterity": 0.0,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Dragonborn"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Dragonborn",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
         "charisma": 0.0,
         "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 1.0,
-        "dexterity": 0.5
+        "strength": 0.0,
+        "dexterity": 0.5,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Gnome, Forest"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Gnome, Forest",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.5,
         "charisma": 0.0,
         "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 1.0,
-        "dexterity": 0.0
+        "strength": 0.0,
+        "dexterity": 0.0,
+        "constitution": 0.5
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Gnome, Rock"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Gnome, Rock",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
+        "charisma": 1.0,
+        "wisdom": 0.30000000000000004,
+        "intelligence": 0.30000000000000004,
+        "strength": 0.30000000000000004,
+        "dexterity": 0.30000000000000004,
+        "constitution": 0.30000000000000004
+      },
+      "male_names": [],
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Half-Elf",
+      "height": [
+        65.0,
+        9.5
+      ]
+    },
+    {
+      "family_names": [],
+      "attribute_modifiers": {
+        "charisma": 0.0,
+        "wisdom": 0.0,
+        "intelligence": 0.0,
+        "strength": 1.0,
+        "dexterity": 0.0,
+        "constitution": 0.5
+      },
+      "male_names": [],
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Half-Orc",
+      "height": [
+        65.0,
+        9.5
+      ]
+    },
+    {
+      "family_names": [],
+      "attribute_modifiers": {
         "charisma": 1.0,
         "wisdom": 0.0,
-        "strength": 0.0,
-        "intelligence": 0.0,
-        "dexterity": 0.0
-      },
-      "family_names": [],
-      "female_names": [],
-      "male_names": [],
-      "name": "Half-Elf"
-    },
-    {
-      "attribute_modifiers": {
-        "constitution": 0.5,
-        "charisma": 0.0,
-        "wisdom": 0.0,
-        "strength": 1.0,
-        "intelligence": 0.0,
-        "dexterity": 0.0
-      },
-      "family_names": [],
-      "female_names": [],
-      "male_names": [],
-      "name": "Half-Orc"
-    },
-    {
-      "attribute_modifiers": {
-        "constitution": 0.0,
-        "charisma": 1.0,
-        "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 0.5,
-        "dexterity": 0.0
+        "strength": 0.0,
+        "dexterity": 0.0,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Tiefling"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Tiefling",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.0,
         "charisma": 0.5,
         "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 0.0,
-        "dexterity": 1.0
+        "strength": 0.0,
+        "dexterity": 1.0,
+        "constitution": 0.0
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Halfling, Lightfoot"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Halfling, Lightfoot",
+      "height": [
+        65.0,
+        9.5
+      ]
     },
     {
+      "family_names": [],
       "attribute_modifiers": {
-        "constitution": 0.5,
         "charisma": 0.0,
         "wisdom": 0.0,
-        "strength": 0.0,
         "intelligence": 0.0,
-        "dexterity": 1.0
+        "strength": 0.0,
+        "dexterity": 1.0,
+        "constitution": 0.5
       },
-      "family_names": [],
-      "female_names": [],
       "male_names": [],
-      "name": "Halfling, Stout"
+      "weight": [
+        160.0,
+        85.0
+      ],
+      "female_names": [],
+      "m_f_ratio": 1.0,
+      "name": "Halfling, Stout",
+      "height": [
+        65.0,
+        9.5
+      ]
     }
-  ]
+  ],
+  "skills": []
 }
