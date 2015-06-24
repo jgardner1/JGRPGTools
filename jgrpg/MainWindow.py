@@ -4,6 +4,7 @@ ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 
 from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CreateRaceWidget import CreateRaceWidget
+from jgrpg.CreateItemPrototypeWidget import CreateItemPrototypeWidget
 from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.CreateSkillDialog import CreateSkillDialog
 from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
@@ -11,7 +12,13 @@ from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtCore import QCoreApplication
 
-from jgrpg.model import GlobalData, Race
+from jgrpg.model import (
+        GlobalData,
+        Character, Race, Skill, Personality,
+        ItemPrototypes,
+        ObjectStore,
+)
+
 
 class MainWindow(MainWindowBaseClass, ui_MainWindow):
     
@@ -22,6 +29,15 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         self.dialogs = {}
 
+    def create(self, cls):
+        if cls is Character:
+            return self.createCharacter()
+        elif cls is Race:
+            return self.createRace()
+        elif cls is ItemPrototypes.cls:
+            return self.createItemPrototype()
+        else:
+            print("I don't know how to create {}".format(cls))
 
     def createCharacter(self, race=None):
         window = self.mdiArea.addSubWindow(CreateCharacterWidget(race))
@@ -32,6 +48,12 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
     def createRace(self):
         window = self.mdiArea.addSubWindow(CreateRaceWidget())
         window.setWindowTitle("Create Race")
+        window.show()
+        return window
+
+    def createItemPrototype(self):
+        window = self.mdiArea.addSubWindow(CreateItemPrototypeWidget())
+        window.setWindowTitle("Create Item Prototype")
         window.show()
         return window
 

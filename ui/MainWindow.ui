@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUniverse">
@@ -70,11 +70,18 @@
     </property>
     <addaction name="actionCreatePersonality"/>
    </widget>
+   <widget class="QMenu" name="menuItems">
+    <property name="title">
+     <string>Items</string>
+    </property>
+    <addaction name="actionCreate_Item_Prototype"/>
+   </widget>
    <addaction name="menuUniverse"/>
    <addaction name="menuCharacter"/>
    <addaction name="menuRace"/>
    <addaction name="menuSkills"/>
    <addaction name="menuPersonalities"/>
+   <addaction name="menuItems"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="universeDockWidget">
@@ -144,6 +151,11 @@
   <action name="actionCreateSkill">
    <property name="text">
     <string>&amp;Create Skill</string>
+   </property>
+  </action>
+  <action name="actionCreate_Item_Prototype">
+   <property name="text">
+    <string>Create Item Prototype</string>
    </property>
   </action>
  </widget>
@@ -302,6 +314,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCreate_Item_Prototype</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createItemPrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>createCharacter()</slot>
@@ -312,5 +340,6 @@
   <slot>createRace()</slot>
   <slot>createSkill()</slot>
   <slot>createPersonality()</slot>
+  <slot>createItemPrototype()</slot>
  </slots>
 </ui>

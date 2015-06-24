@@ -1,64 +1,10 @@
-import json
-
-from PyQt5.QtCore import pyqtSignal, QObject
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
-
-from random import choice, uniform
 from .Race import Race
+from .Character import Character
+from .Item import Item
+from .Skill import Skill
+from .Personality import Personality
 
-from .Item import ItemPrototypes
-from .ObjectStore import ObjectStore
-
-class Character(QObject):
-    """A character is any creature."""
-    changed = pyqtSignal()
-
-    def __init__(self, *, name=""):
-        super(Character, self).__init__()
-        self.name = name
-
-    def json(self):
-        return {
-            'name':self.name,
-        }
-
-class Skill(QObject):
-    """A skill is something creatures can learn."""
-    changed = pyqtSignal()
-
-    def __init__(self, *, name=""):
-        super(Skill, self).__init__()
-        self.name = name
-
-    def json(self):
-        return {
-            'name':self.name,
-        }
-
-class Personality(QObject):
-    """A personality trait is something that the creature cannot learn and
-    cannot easily change."""
-    changed = pyqtSignal()
-
-    def __init__(self, *, name=""):
-        super(Personality, self).__init__()
-        self.name = name
-
-    def json(self):
-        return {
-            'name':self.name,
-        }
-
-class Background(QObject):
-    changed = pyqtSignal()
-    def __init__(self, *, name=""):
-        super(Background, self).__init__()
-        self.name = name
-
-    def json(self):
-        return {
-            'name':self.name,
-        }
+from PyQt5.QtCore import QObject, pyqtSignal
 
 class GlobalDataClass(QObject):
     """Stores the global data available everywhere in the app."""
@@ -125,8 +71,7 @@ class GlobalDataClass(QObject):
             races=[],
             skills=[],
             personalities=[],
-            backgrounds=[],
-            item_prototypes=[]
+            backgrounds=[]
     ):
         self.characters[:] = [Character(**data) for data in characters]
         self.races[:] = [Race(**data) for data in races]
@@ -139,8 +84,6 @@ class GlobalDataClass(QObject):
         self.races_reset.emit()
         self.skills_reset.emit()
         self.personalities_reset.emit()
-
-        ItemPrototypes.load(item_prototypes)
 
 
     def save(self, filename=None):
@@ -156,7 +99,6 @@ class GlobalDataClass(QObject):
             'races':[_.json() for _ in self.races],
             'skills':[_.json() for _ in self.skills],
             'personalities':[_.json() for _ in self.personalities],
-            'item_prototypes':ItemPrototypes.save(),
         }, open(f, 'w', encoding='utf8'), indent=2)
 
     def createCharacter(self, **data):
@@ -197,3 +139,4 @@ class GlobalDataClass(QObject):
 
 
 GlobalData = GlobalDataClass()
+
