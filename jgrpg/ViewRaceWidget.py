@@ -12,7 +12,7 @@ class ViewRaceWidget(
     def __init__(self, race):
         super(ViewRaceWidget, self).__init__()
 
-        self.race = race
+        self.obj = race
 
         self.setupUi(self)
 
@@ -22,7 +22,7 @@ class ViewRaceWidget(
         race.changed.connect(self.set_data)
 
     def set_data(self):
-        race = self.race
+        race = self.obj
 
         self.setWindowTitle(race.name+" (Race)")
         self.nameValueLabel.setText(race.name)
@@ -44,12 +44,12 @@ class ViewRaceWidget(
     def createCharacter(self):
         print("Create character")
         mw = __main__.main_window
-        mw.createCharacter(self.race)
+        mw.createCharacter(self.obj)
         
     def copyRace(self):
         print("Copy race")
         
     def editRace(self):
         mw = __main__.main_window
-        window = mw.editRace(self.race)
+        window = mw.editObject(self.obj)
 

@@ -112,7 +112,6 @@ class UniverseTreeView(QTreeView):
     def init_item_prototypes(self):
         self._set_items(self.item_prototypes_item, ItemPrototypes)
 
-
     def item_activated(self, index):
         item = index.data(Qt.UserRole)
 

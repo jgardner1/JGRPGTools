@@ -6,6 +6,7 @@ from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CreateRaceWidget import CreateRaceWidget
 from jgrpg.CreateItemPrototypeWidget import CreateItemPrototypeWidget
 from jgrpg.ViewRaceWidget import ViewRaceWidget
+from jgrpg.ViewItemPrototypeWidget import ViewItemPrototypeWidget
 from jgrpg.CreateSkillDialog import CreateSkillDialog
 from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 
@@ -59,8 +60,12 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
     def editObject(self, obj):
         """Edits an unknown object to the mdiArea."""
+        widget_class = None
         if isinstance(obj, Race):
-            self.editRace(obj)
+            widget_class = CreateRaceWidget
+
+        elif isinstance(obj, ItemPrototypes.cls):
+            widget_class = CreateItemPrototypeWidget
 
         elif isinstance(obj, Character):
             print("character")
@@ -71,23 +76,21 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         else:
             print("none of the above")
 
+        if not widget_class:
+            return
 
-    def editRace(self, race):
-        for window in self.mdiArea.subWindowList():
-            widget = window.widget()
-            if isinstance(widget, CreateRaceWidget) and widget.race is race:
-                self.mdiArea.setActiveSubWindow(window)
-                break
-        else:
-            window = self.mdiArea.addSubWindow(CreateRaceWidget(race))
-            window.setWindowTitle("Edit Race")
-            window.show()
+        self._open_or_surface_window(widget_class, obj)
+
+
 
     def viewObject(self, obj):
         """Shows an unknown object to the mdiArea."""
-        if isinstance(obj, Race):
-            self.viewRace(obj)
 
+        widget_class = None
+        if isinstance(obj, Race):
+            widget_class = ViewRaceWidget
+        elif isinstance(obj, ItemPrototypes.cls):
+            widget_class = ViewItemPrototypeWidget
         elif isinstance(obj, Character):
             print("character")
         elif isinstance(obj, Skill):
@@ -97,15 +100,24 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         else:
             print("none of the above")
 
-    def viewRace(self, race):
+        if not widget_class:
+            return
+
+        self._open_or_surface_window(widget_class, obj)
+
+
+
+    def _open_or_surface_window(self, widget_class, obj):
         for window in self.mdiArea.subWindowList():
             widget = window.widget()
-            if isinstance(widget, ViewRaceWidget) and widget.race is race:
+            if isinstance(widget, widget_class) and widget.obj is obj:
                 self.mdiArea.setActiveSubWindow(window)
                 break
         else:
-            window = self.mdiArea.addSubWindow(ViewRaceWidget(race))
+            window = self.mdiArea.addSubWindow(widget_class(obj))
             window.show()
+
+
 
     def deleteObject(self, obj):
         mbox = QMessageBox(

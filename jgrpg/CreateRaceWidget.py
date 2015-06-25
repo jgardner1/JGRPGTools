@@ -12,7 +12,7 @@ class CreateRaceWidget(
     def __init__(self, race=None):
         super(CreateRaceWidget, self).__init__()
 
-        self.race = race
+        self.obj = race
 
         self.setupUi(self)
 
@@ -33,8 +33,10 @@ class CreateRaceWidget(
             print("Unknown role")
 
     def reset(self):
-        if self.race:
-            race = self.race
+        if self.obj:
+            race = self.obj
+
+            self.setWindowTitle("Edit {} (Race)".format(race.name))
             self.nameLineEdit.setText(race.name)
             self.maleNamesTextEdit.setPlainText("\n".join(race.male_names))
             self.femaleNamesTextEdit.setPlainText("\n".join(race.female_names))
@@ -47,6 +49,7 @@ class CreateRaceWidget(
             self.wisdomSpinBox.setValue(race.attribute_modifiers.get('wisdom', 0.0))
             self.charismaSpinBox.setValue(race.attribute_modifiers.get('charisma', 0.0))
         else:
+            self.setWindowTitle("Create Race")
             self.nameLineEdit.setText("")
             self.maleNamesTextEdit.setPlainText("")
             self.femaleNamesTextEdit.setPlainText("")
@@ -74,7 +77,8 @@ class CreateRaceWidget(
                     "charisma":self.charismaSpinBox.value(),
                 },
         }
-        if self.race:
-            self.race.update(**data)
+        if self.obj:
+            self.obj.update(**data)
         else:
-            self.race = GlobalData.createRace(**data)
+            self.obj = GlobalData.createRace(**data)
+        self.reset()

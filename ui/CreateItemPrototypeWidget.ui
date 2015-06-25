@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>497</width>
-    <height>586</height>
+    <width>633</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,14 +24,14 @@
    <item row="0" column="1">
     <widget class="QLineEdit" name="nameLineEdit"/>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>Weight:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
       <widget class="QDoubleSpinBox" name="weightSpinBox">
@@ -64,14 +64,14 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>Size:</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
       <widget class="InchesSpinBox" name="sizeSpinBox">
@@ -98,14 +98,14 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>Value:</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="4" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <widget class="QDoubleSpinBox" name="valueSpinBox">
@@ -138,7 +138,7 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="1">
+   <item row="5" column="1">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -148,16 +148,6 @@
        <string>Weapon</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="weaponTypeLineEdit"/>
-       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
@@ -369,7 +359,7 @@
      </widget>
     </widget>
    </item>
-   <item row="5" column="0" colspan="2">
+   <item row="6" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -378,6 +368,33 @@
       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
      </property>
     </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Type:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_11">
+     <item>
+      <widget class="ItemTypeComboBox" name="typeComboBox"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -391,6 +408,11 @@
    <class>InchesSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>jgrpg/InchesSpinBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ItemTypeComboBox</class>
+   <extends>QComboBox</extends>
+   <header>jgrpg/ItemTypeComboBox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -454,8 +476,8 @@
      <y>312</y>
     </hint>
     <hint type="destinationlabel">
-     <x>240</x>
-     <y>314</y>
+     <x>441</x>
+     <y>320</y>
     </hint>
    </hints>
   </connection>
@@ -470,7 +492,7 @@
      <y>313</y>
     </hint>
     <hint type="destinationlabel">
-     <x>358</x>
+     <x>607</x>
      <y>307</y>
     </hint>
    </hints>
@@ -486,8 +508,8 @@
      <y>308</y>
     </hint>
     <hint type="destinationlabel">
-     <x>369</x>
-     <y>327</y>
+     <x>607</x>
+     <y>330</y>
     </hint>
    </hints>
   </connection>
@@ -502,10 +524,29 @@
      <y>270</y>
     </hint>
     <hint type="destinationlabel">
-     <x>315</x>
-     <y>274</y>
+     <x>609</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>Form</receiver>
+   <slot>clicked(QAbstractButton*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>215</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>221</x>
+     <y>432</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>clicked(QAbstractButton*)</slot>
+ </slots>
 </ui>
