@@ -39,25 +39,46 @@ class CreateItemPrototypeWidget(base, ui):
         if self.obj:
             # Reset to the original item
             item = self.obj
+
+            # Set the window title
             self.setWindowTitle("Edit {} (Item Prototype)".format(item.name))
+
+            # Set the name line edit
             self.nameLineEdit.setText(item.name)
 
+            # Set the type combo box
             type_index = self.typeComboBox.findText(item.type)
             if type_index == -1:
                 self.typeComboBox.setEditText(item.type)
             else:
                 self.typeComboBox.setCurrentIndex(type_index)
+
+            # Set the weight
+            self.weightSpinBox.setValue(item.weight)
+
+            # Set the size
+            self.sizeSpinBox.setValue(item.size)
+
+            # Set the value
+            self.valueSpinBox.setValue(item.value)
+
         else:
             # Set the defaults
             self.setWindowTitle("Create Item Prototype")
             self.nameLineEdit.setText("")
             self.typeComboBox.setCurrentIndex(-1)
+            self.weightSpinBox.setValue(0.5)
+            self.sizeSpinBox.setValue(6.0)
+            self.valueSpinBox.setValue(1.0)
 
     def apply(self):
         # Create or update the item.
         data = {
             "name":self.nameLineEdit.text().strip(),
             "type":self.typeComboBox.currentText().strip(),
+            "weight": self.weightSpinBox.value(),
+            "size": self.sizeSpinBox.value(),
+            "value": self.valueSpinBox.value(),
         }
         if self.obj:
             # Update the item because we are editing it

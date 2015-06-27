@@ -27,6 +27,10 @@ class ViewItemPrototypeWidget(base, ui):
 
         self.setWindowTitle("{} (Item Prototype)".format(item.name))
         self.nameValueLabel.setText(item.name)
+        self.typeValueLabel.setText(item.type)
+        self.weightValueLabel.setText(item.weight)
+        self.sizeValueLabel.setText(item.size)
+        self.valueValueLabel.setText(item.value)
 
     def createInstance(self):
         pass
