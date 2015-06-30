@@ -5,8 +5,12 @@ ui_MainWindow, MainWindowBaseClass = loadUiType('ui/MainWindow.ui')
 from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CreateRaceWidget import CreateRaceWidget
 from jgrpg.CreateItemPrototypeWidget import CreateItemPrototypeWidget
+from jgrpg.CreateGroupWidget import CreateGroupWidget
+
 from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.ViewItemPrototypeWidget import ViewItemPrototypeWidget
+from jgrpg.ViewGroupWidget import ViewGroupWidget
+
 from jgrpg.CreateSkillDialog import CreateSkillDialog
 from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
 
@@ -16,7 +20,7 @@ from PyQt5.QtCore import QCoreApplication
 from jgrpg.model import (
         GlobalData,
         Character, Race, Skill, Personality,
-        ItemPrototypes,
+        ItemPrototypes, Groups,
         ObjectStore,
 )
 
@@ -37,6 +41,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
             return self.createRace()
         elif cls is ItemPrototypes.cls:
             return self.createItemPrototype()
+        elif cls is Groups.cls:
+            return self.createGroup()
         else:
             print("I don't know how to create {}".format(cls))
 
@@ -54,7 +60,11 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
     def createItemPrototype(self):
         window = self.mdiArea.addSubWindow(CreateItemPrototypeWidget())
-        window.setWindowTitle("Create Item Prototype")
+        window.show()
+        return window
+
+    def createGroup(self):
+        window = self.mdiArea.addSubWindow(CreateGroupWidget())
         window.show()
         return window
 
@@ -66,6 +76,9 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         elif isinstance(obj, ItemPrototypes.cls):
             widget_class = CreateItemPrototypeWidget
+
+        elif isinstance(obj, Groups.cls):
+            widget_class = CreateGroupWidget
 
         elif isinstance(obj, Character):
             print("character")
@@ -91,6 +104,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
             widget_class = ViewRaceWidget
         elif isinstance(obj, ItemPrototypes.cls):
             widget_class = ViewItemPrototypeWidget
+        elif isinstance(obj, Groups.cls):
+            widget_class = ViewGroupWidget
         elif isinstance(obj, Character):
             print("character")
         elif isinstance(obj, Skill):
@@ -131,6 +146,10 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         if isinstance(obj, Race):
             self.deleteRace(obj)
+        elif isinstance(obj, ItemPrototypes.cls):
+            ItemPrototypes.remove(obj)
+        elif isinstance(obj, Groups.cls):
+            Groups.remove(obj)
         elif isinstance(obj, Character):
             print("character")
         elif isinstance(obj, Skill):

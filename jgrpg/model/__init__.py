@@ -7,6 +7,7 @@ from random import choice, uniform
 from .Race import Race
 
 from .Item import ItemPrototypes
+from .Group import Groups
 from .ObjectStore import ObjectStore
 
 class Character(QObject):
@@ -126,7 +127,8 @@ class GlobalDataClass(QObject):
             skills=[],
             personalities=[],
             backgrounds=[],
-            item_prototypes=[]
+            item_prototypes=[],
+            groups=[]
     ):
         self.characters[:] = [Character(**data) for data in characters]
         self.races[:] = [Race(**data) for data in races]
@@ -141,6 +143,7 @@ class GlobalDataClass(QObject):
         self.personalities_reset.emit()
 
         ItemPrototypes.load(item_prototypes)
+        Groups.load(groups)
 
 
     def save(self, filename=None):
@@ -157,6 +160,7 @@ class GlobalDataClass(QObject):
             'skills':[_.json() for _ in self.skills],
             'personalities':[_.json() for _ in self.personalities],
             'item_prototypes':ItemPrototypes.save(),
+            'groups':Groups.save(),
         }, open(f, 'w', encoding='utf8'), indent=2)
 
     def createCharacter(self, **data):

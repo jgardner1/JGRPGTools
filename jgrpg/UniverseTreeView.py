@@ -3,7 +3,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
 from jgrpg.model import (
-        GlobalData, Character, Race, Skill, Personality, ItemPrototypes,
+        GlobalData, Character, Race, Skill, Personality, ItemPrototypes, Groups,
         ObjectStore,
 )
 
@@ -72,6 +72,15 @@ class UniverseTreeView(QTreeView):
         ItemPrototypes.removed.connect(self.init_item_prototypes)
         ItemPrototypes.reset.connect(self.init_item_prototypes)
 
+        self.groups_item = QStandardItem("Groups")
+        self.groups_item.setData(Groups, Qt.UserRole)
+        self.groups_item.setEditable(False)
+        root_item.appendRow(self.groups_item)
+
+        Groups.added.connect(self.init_groups)
+        Groups.removed.connect(self.init_groups)
+        Groups.reset.connect(self.init_groups)
+
         self.init_all()
 
         self.activated.connect(self.item_activated)
@@ -84,6 +93,7 @@ class UniverseTreeView(QTreeView):
         self.init_personalities()
         self.init_backgrounds()
         self.init_item_prototypes()
+        self.init_groups()
 
     def _set_items(self, item, data):
         item.setRowCount(0)
@@ -111,6 +121,9 @@ class UniverseTreeView(QTreeView):
 
     def init_item_prototypes(self):
         self._set_items(self.item_prototypes_item, ItemPrototypes)
+
+    def init_groups(self):
+        self._set_items(self.groups_item, Groups)
 
     def item_activated(self, index):
         item = index.data(Qt.UserRole)
