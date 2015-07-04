@@ -3,10 +3,11 @@ from PyQt5.uic import loadUiType
 ui, base = loadUiType('ui/CreateGroupWidget.ui')
 
 from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QDialog
 from jgrpg.model import Groups, Characters
 from jgrpg.GetItemDialog import GetItemDialog
+from jgrpg.CharacterItem import CharacterItem
 
 
 class CreateGroupWidget(base, ui):
@@ -47,7 +48,7 @@ class CreateGroupWidget(base, ui):
     def reset(self):
         # Either way, we are going to replace the model.
         model = QStandardItemModel()
-        self.characterListView.setModel(model)
+        self.charactersListView.setModel(model)
 
         if self.obj:
             # Reset to the original group
@@ -60,10 +61,7 @@ class CreateGroupWidget(base, ui):
             self.nameLineEdit.setText(group.name)
 
             for c in group.characters:
-                item = QStandardItem(c.name)
-                item.setData(c, Qt.UserRole)
-                item.setEditable(False)
-                model.appendRow(item)
+                model.appendRow(CharacterItem(c))
 
         else:
             # Set the defaults
@@ -72,7 +70,7 @@ class CreateGroupWidget(base, ui):
 
 
     def apply(self):
-        model = self.characterListView.model()
+        model = self.charactersListView.model()
 
         # Create or update the item.
         data = {
@@ -99,7 +97,7 @@ class CreateGroupWidget(base, ui):
 
         # figure out who is added.
         characters_added = set()
-        model = self.characterListView.model()
+        model = self.charactersListView.model()
         for i in range(model.rowCount()):
             characters_added.add(model.data(model.index(i, 0), Qt.UserRole))
             
@@ -108,10 +106,7 @@ class CreateGroupWidget(base, ui):
         for c in Characters:
             if c in characters_added: continue
 
-            item = QStandardItem(c.name)
-            item.setData(c, Qt.UserRole)
-            item.setEditable(False)
-            model.appendRow(item)
+            model.appendRow(CharacterItem(c))
 
         dialog = GetItemDialog("Choose a Character to Add",
             "Characters",
@@ -119,10 +114,5 @@ class CreateGroupWidget(base, ui):
         )
 
         if dialog.exec() == QDialog.Accepted:
-
-            item = QStandardItem(dialog.selection.name)
-            item.setData(dialog.selection, Qt.UserRole)
-            item.setEditable(False)
-
-            model = self.characterListView.model()
-            model.appendRow(item)
+            model = self.charactersListView.model()
+            model.appendRow(CharacterItem(dialog.selection))
