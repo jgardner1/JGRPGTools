@@ -1,24 +1,27 @@
-from PyQt5.QtCore import QObject, pyqtSignal
-from .ObjectStore import ObjectStore
+from .ObjectStore import ObjectStore, ObjectStoreObject
+from .Character import Characters
 
-class Group(QObject):
-    changed = pyqtSignal()
-    deleted = pyqtSignal()
-
-    def __init__(self, **data):
-        super(Group, self).__init__()
-        self.update(**data)
-
+class Group(ObjectStoreObject):
     def update(self, *,
-            name="Unnamed Group"
+            id=None,
+            name="Unnamed Group",
+            characters=[]
     ):
-        self.name = name
+        self.characters = [
+            c if isinstance(c, Characters.cls) else Characters[c]
+            for c in characters
+        ]
 
-        self.changed.emit()
+        super(Group, self).update(id=id, name=name)
+
 
     def data(self):
-        return {
-            'name': self.name,
-        }
+        data = super(Group, self).data()
+
+        data.update({
+            'characters':[c.id for c in self.characters],
+        })
+
+        return data
 
 Groups = ObjectStore(Group)

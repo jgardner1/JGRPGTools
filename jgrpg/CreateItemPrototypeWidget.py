@@ -8,13 +8,13 @@ from jgrpg.model import ItemPrototypes
 
 class CreateItemPrototypeWidget(base, ui):
     
-    def __init__(self, item=None):
+    def __init__(self, *, obj=None):
         """Creates an populates a Create / Edit Item Window.
 
         If item is specified, it is an edit window."""
         super(CreateItemPrototypeWidget, self).__init__()
 
-        self.obj = item
+        self.obj = obj
 
         # Setup the UI elements
         self.setupUi(self)

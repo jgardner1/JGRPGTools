@@ -10,15 +10,15 @@ import __main__
 
 class ViewGroupWidget(base, ui):
     
-    def __init__(self, group=None):
+    def __init__(self, *, obj):
         super(ViewGroupWidget, self).__init__()
 
-        self.obj = group
+        self.obj = obj
 
         # Setup the UI elements
         self.setupUi(self)
 
-        group.changed.connect(self.set_data)
+        obj.changed.connect(self.set_data)
 
         self.set_data()
 

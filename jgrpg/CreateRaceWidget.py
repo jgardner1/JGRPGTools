@@ -9,10 +9,10 @@ class CreateRaceWidget(
         ui_CreateRaceWidget
 ):
 
-    def __init__(self, race=None):
+    def __init__(self, *, obj=None):
         super(CreateRaceWidget, self).__init__()
 
-        self.obj = race
+        self.obj = obj
 
         self.setupUi(self)
 

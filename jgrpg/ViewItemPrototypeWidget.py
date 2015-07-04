@@ -10,15 +10,15 @@ import __main__
 
 class ViewItemPrototypeWidget(base, ui):
     
-    def __init__(self, item=None):
+    def __init__(self, *, obj):
         super(ViewItemPrototypeWidget, self).__init__()
 
-        self.obj = item
+        self.obj = obj
 
         # Setup the UI elements
         self.setupUi(self)
 
-        item.changed.connect(self.set_data)
+        obj.changed.connect(self.set_data)
 
         self.set_data()
 

@@ -1,22 +1,15 @@
 from PyQt5.QtCore import QObject, pyqtSignal
-from .ObjectStore import ObjectStore
+from .ObjectStore import ObjectStore, ObjectStoreObject
 
-class ItemPrototype(QObject):
-    changed = pyqtSignal()
-    deleted = pyqtSignal()
-
-    def __init__(self, **data):
-        super(ItemPrototype, self).__init__()
-        self.update(**data)
-
+class ItemPrototype(ObjectStoreObject):
     def update(self, *,
+            id=None,
             name="Unnamed Item",
             type='misc',
             size=1.0,   # in
             weight=0.1, # lbs
             value=0.1  # gp
     ):
-        self.name = name
         self.type = type
         self.size = float(size)
         self.weight = float(weight)
@@ -24,16 +17,18 @@ class ItemPrototype(QObject):
 
         # TODO: Damage, armor value, etc... for different classes of items.
 
-        self.changed.emit()
+        super(ItemPrototype, self).update(id=id, name=name)
 
     def data(self):
-        return {
-            'name': self.name,
+        data = super(ItemPrototype, self).data()
+        data.update({
             'type': self.type,
             'size': self.size,
             'weight': self.weight,
             'value': self.value,
-        }
+        })
+
+        return data
 
 ItemPrototypes = ObjectStore(ItemPrototype)
 

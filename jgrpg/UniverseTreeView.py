@@ -3,7 +3,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
 from jgrpg.model import (
-        GlobalData, Character, Race, Skill, Personality, ItemPrototypes, Groups,
+        GlobalData, Characters, Race, Skill, Personality, ItemPrototypes, Groups,
         ObjectStore,
 )
 
@@ -19,12 +19,13 @@ class UniverseTreeView(QTreeView):
 
         root_item = model.invisibleRootItem()
         self.characters_item = QStandardItem("Characters")
+        self.characters_item.setData(Characters, Qt.UserRole)
         self.characters_item.setEditable(False)
         root_item.appendRow(self.characters_item)
 
-        GlobalData.character_added.connect(self.init_characters)
-        GlobalData.character_removed.connect(self.init_characters)
-        GlobalData.characters_reset.connect(self.init_characters)
+        Characters.added.connect(self.init_characters)
+        Characters.removed.connect(self.init_characters)
+        Characters.reset.connect(self.init_characters)
 
 
         self.races_item = QStandardItem("Races")
@@ -105,7 +106,7 @@ class UniverseTreeView(QTreeView):
 
 
     def init_characters(self):
-        self._set_items(self.characters_item, GlobalData.characters)
+        self._set_items(self.characters_item, Characters)
 
     def init_races(self):
         self._set_items(self.races_item, GlobalData.races)

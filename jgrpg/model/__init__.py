@@ -6,22 +6,11 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from random import choice, uniform
 from .Race import Race
 
+from .Character import Characters
 from .Item import ItemPrototypes
 from .Group import Groups
 from .ObjectStore import ObjectStore
 
-class Character(QObject):
-    """A character is any creature."""
-    changed = pyqtSignal()
-
-    def __init__(self, *, name=""):
-        super(Character, self).__init__()
-        self.name = name
-
-    def json(self):
-        return {
-            'name':self.name,
-        }
 
 class Skill(QObject):
     """A skill is something creatures can learn."""
@@ -66,15 +55,6 @@ class GlobalDataClass(QObject):
 
     filename_changed = pyqtSignal('QString')
 
-    # A character has been added to the end
-    character_added = pyqtSignal()
-
-    # The character at index has been removed
-    character_removed = pyqtSignal(int)
-
-    # The characters have changed completely.
-    characters_reset = pyqtSignal()
-
     race_added = pyqtSignal()
     race_removed = pyqtSignal(int)
     races_reset = pyqtSignal()
@@ -97,7 +77,6 @@ class GlobalDataClass(QObject):
 
         # Never reassign these. If you'd like to replace the array, use
         # self.races[:] = [...]
-        self.characters = []
         self.races = []
         self.skills = []
         self.personalities = []
@@ -130,18 +109,17 @@ class GlobalDataClass(QObject):
             item_prototypes=[],
             groups=[]
     ):
-        self.characters[:] = [Character(**data) for data in characters]
         self.races[:] = [Race(**data) for data in races]
         self.skills[:] = [Skill(**data) for data in skills]
         self.personalities[:] = [Personality(**data)
             for data in personalities]
         self.backgrounds[:] = [Background(**data) for data in backgrounds]
 
-        self.characters_reset.emit()
         self.races_reset.emit()
         self.skills_reset.emit()
         self.personalities_reset.emit()
 
+        Characters.load(characters)
         ItemPrototypes.load(item_prototypes)
         Groups.load(groups)
 
@@ -155,19 +133,13 @@ class GlobalDataClass(QObject):
 
     def save_to_json(self, f):
         data = json.dump({
-            'characters':[_.json() for _ in self.characters],
+            'characters':Characters.save(),
             'races':[_.json() for _ in self.races],
             'skills':[_.json() for _ in self.skills],
             'personalities':[_.json() for _ in self.personalities],
             'item_prototypes':ItemPrototypes.save(),
             'groups':Groups.save(),
         }, open(f, 'w', encoding='utf8'), indent=2)
-
-    def createCharacter(self, **data):
-        character = Character(**data)
-        self.characters.append(character)
-        self.character_added.emit()
-        return character
 
     def createRace(self, **data):
         race = Race(**data)

@@ -27,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>586</width>
-        <height>595</height>
+        <width>589</width>
+        <height>584</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -520,7 +520,7 @@
    <sender>buttonBox</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>Widget</receiver>
-   <slot>clicked(QAbstractButton*)</slot>
+   <slot>on_accepted(QAbstractButton*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>230</x>
@@ -582,7 +582,7 @@
   </connection>
  </connections>
  <slots>
-  <slot>clicked(QAbstractButton*)</slot>
+  <slot>on_accepted(QAbstractButton*)</slot>
   <slot>rerollAll()</slot>
   <slot>randomizeName()</slot>
   <slot>randomizeSize()</slot>

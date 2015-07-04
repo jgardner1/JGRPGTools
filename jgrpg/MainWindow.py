@@ -19,8 +19,8 @@ from PyQt5.QtCore import QCoreApplication
 
 from jgrpg.model import (
         GlobalData,
-        Character, Race, Skill, Personality,
-        ItemPrototypes, Groups,
+        Race, Skill, Personality,
+        Characters, ItemPrototypes, Groups,
         ObjectStore,
 )
 
@@ -35,20 +35,23 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         self.dialogs = {}
 
     def create(self, cls):
-        if cls is Character:
+        if cls is Characters.cls:
             return self.createCharacter()
+
         elif cls is Race:
             return self.createRace()
+
         elif cls is ItemPrototypes.cls:
             return self.createItemPrototype()
+
         elif cls is Groups.cls:
             return self.createGroup()
+
         else:
             print("I don't know how to create {}".format(cls))
 
     def createCharacter(self, race=None):
-        window = self.mdiArea.addSubWindow(CreateCharacterWidget(race))
-        window.setWindowTitle("Create Character")
+        window = self.mdiArea.addSubWindow(CreateCharacterWidget(race=race))
         window.show()
         return window
 
@@ -80,19 +83,22 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         elif isinstance(obj, Groups.cls):
             widget_class = CreateGroupWidget
 
-        elif isinstance(obj, Character):
-            print("character")
+        elif isinstance(obj, Characters.cls):
+            widget_class = CreateCharacterWidget
+
         elif isinstance(obj, Skill):
             print("skill")
+
         elif isinstance(obj, Personality):
             print("personality")
+
         else:
             print("none of the above")
 
         if not widget_class:
             return
 
-        self._open_or_surface_window(widget_class, obj)
+        self._open_or_surface_window(widget_class, obj=obj)
 
 
 
@@ -102,16 +108,22 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         widget_class = None
         if isinstance(obj, Race):
             widget_class = ViewRaceWidget
+
         elif isinstance(obj, ItemPrototypes.cls):
             widget_class = ViewItemPrototypeWidget
+
         elif isinstance(obj, Groups.cls):
             widget_class = ViewGroupWidget
-        elif isinstance(obj, Character):
-            print("character")
+
+        elif isinstance(obj, Characters.cls):
+            widget_class = ViewCharacterWidget
+
         elif isinstance(obj, Skill):
             print("skill")
+
         elif isinstance(obj, Personality):
             print("personality")
+
         else:
             print("none of the above")
 
@@ -121,7 +133,6 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         self._open_or_surface_window(widget_class, obj)
 
 
-
     def _open_or_surface_window(self, widget_class, obj):
         for window in self.mdiArea.subWindowList():
             widget = window.widget()
@@ -129,9 +140,9 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
                 self.mdiArea.setActiveSubWindow(window)
                 break
         else:
-            window = self.mdiArea.addSubWindow(widget_class(obj))
+            print("widget_class={}".format(widget_class))
+            window = self.mdiArea.addSubWindow(widget_class(obj=obj))
             window.show()
-
 
 
     def deleteObject(self, obj):
@@ -146,16 +157,22 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         if isinstance(obj, Race):
             self.deleteRace(obj)
+
         elif isinstance(obj, ItemPrototypes.cls):
             ItemPrototypes.remove(obj)
+
         elif isinstance(obj, Groups.cls):
             Groups.remove(obj)
-        elif isinstance(obj, Character):
-            print("character")
+
+        elif isinstance(obj, Characters.cls):
+            Characters.remove(obj)
+
         elif isinstance(obj, Skill):
             print("skill")
+
         elif isinstance(obj, Personality):
             print("personality")
+
         else:
             print("none of the above")
 

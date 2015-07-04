@@ -9,17 +9,17 @@ class ViewRaceWidget(
         ui_ViewRaceWidget
 ):
 
-    def __init__(self, race):
+    def __init__(self, *, obj):
         super(ViewRaceWidget, self).__init__()
 
-        self.obj = race
+        self.obj = obj
 
         self.setupUi(self)
 
         self.set_data()
 
-        race.removed.connect(self.removed)
-        race.changed.connect(self.set_data)
+        obj.removed.connect(self.removed)
+        obj.changed.connect(self.set_data)
 
     def set_data(self):
         race = self.obj
