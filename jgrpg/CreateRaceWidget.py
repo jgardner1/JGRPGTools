@@ -2,7 +2,7 @@ from PyQt5.uic import loadUiType
 
 ui_CreateRaceWidget, CreateRaceWidgetBaseClass = loadUiType('ui/CreateRaceWidget.ui')
 
-from jgrpg.model import GlobalData
+from jgrpg.model import Races
 
 class CreateRaceWidget(
         CreateRaceWidgetBaseClass,
@@ -80,5 +80,5 @@ class CreateRaceWidget(
         if self.obj:
             self.obj.update(**data)
         else:
-            self.obj = GlobalData.createRace(**data)
+            self.obj = Races.add(**data)
         self.reset()

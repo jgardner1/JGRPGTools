@@ -3,7 +3,8 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
 from jgrpg.model import (
-        GlobalData, Characters, Race, Skill, Personality, ItemPrototypes, Groups,
+        Characters, Races, ItemPrototypes,
+        Groups, Areas,
         ObjectStore,
 )
 
@@ -18,6 +19,17 @@ class UniverseTreeView(QTreeView):
         self.setModel(model)
 
         root_item = model.invisibleRootItem()
+
+        self.areas_item = QStandardItem("Areas")
+        self.areas_item.setData(Areas, Qt.UserRole)
+        self.areas_item.setEditable(False)
+        root_item.appendRow(self.areas_item)
+
+        Areas.added.connect(self.init_areas)
+        Areas.removed.connect(self.init_areas)
+        Areas.reset.connect(self.init_areas)
+
+
         self.characters_item = QStandardItem("Characters")
         self.characters_item.setData(Characters, Qt.UserRole)
         self.characters_item.setEditable(False)
@@ -30,38 +42,12 @@ class UniverseTreeView(QTreeView):
 
         self.races_item = QStandardItem("Races")
         self.races_item.setEditable(False)
+        self.races_item.setData(Races, Qt.UserRole)
         root_item.appendRow(self.races_item)
 
-        GlobalData.race_added.connect(self.init_races)
-        GlobalData.race_removed.connect(self.init_races)
-        GlobalData.races_reset.connect(self.init_races)
-
-
-        self.skills_item = QStandardItem("Skills")
-        self.skills_item.setEditable(False)
-        root_item.appendRow(self.skills_item)
-
-        GlobalData.skill_added.connect(self.init_skills)
-        GlobalData.skill_removed.connect(self.init_skills)
-        GlobalData.skills_reset.connect(self.init_skills)
-
-
-        self.personalities_item = QStandardItem("Personalities")
-        self.personalities_item.setEditable(False)
-        root_item.appendRow(self.personalities_item)
-
-        GlobalData.personality_added.connect(self.init_personalities)
-        GlobalData.personality_removed.connect(self.init_personalities)
-        GlobalData.personalities_reset.connect(self.init_personalities)
-
-
-        self.backgrounds_item = QStandardItem("Backgrounds")
-        self.backgrounds_item.setEditable(False)
-        root_item.appendRow(self.backgrounds_item)
-
-        GlobalData.background_added.connect(self.init_backgrounds)
-        GlobalData.background_removed.connect(self.init_backgrounds)
-        GlobalData.backgrounds_reset.connect(self.init_backgrounds)
+        Races.added.connect(self.init_races)
+        Races.removed.connect(self.init_races)
+        Races.reset.connect(self.init_races)
 
 
         self.item_prototypes_item = QStandardItem("Item Prototypes")
@@ -72,6 +58,7 @@ class UniverseTreeView(QTreeView):
         ItemPrototypes.added.connect(self.init_item_prototypes)
         ItemPrototypes.removed.connect(self.init_item_prototypes)
         ItemPrototypes.reset.connect(self.init_item_prototypes)
+
 
         self.groups_item = QStandardItem("Groups")
         self.groups_item.setData(Groups, Qt.UserRole)
@@ -90,11 +77,9 @@ class UniverseTreeView(QTreeView):
     def init_all(self):
         self.init_characters()
         self.init_races()
-        self.init_skills()
-        self.init_personalities()
-        self.init_backgrounds()
         self.init_item_prototypes()
         self.init_groups()
+        self.init_areas()
 
     def _set_items(self, item, data):
         item.setRowCount(0)
@@ -109,22 +94,16 @@ class UniverseTreeView(QTreeView):
         self._set_items(self.characters_item, Characters)
 
     def init_races(self):
-        self._set_items(self.races_item, GlobalData.races)
-
-    def init_skills(self):
-        self._set_items(self.skills_item, GlobalData.skills)
-
-    def init_personalities(self):
-        self._set_items(self.personalities_item, GlobalData.personalities)
-
-    def init_backgrounds(self):
-        self._set_items(self.backgrounds_item, GlobalData.backgrounds)
+        self._set_items(self.races_item, Races)
 
     def init_item_prototypes(self):
         self._set_items(self.item_prototypes_item, ItemPrototypes)
 
     def init_groups(self):
         self._set_items(self.groups_item, Groups)
+
+    def init_areas(self):
+        self._set_items(self.areas_item, Areas)
 
     def item_activated(self, index):
         item = index.data(Qt.UserRole)

@@ -1,19 +1,12 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 
-class Race(QObject):
+from .ObjectStore import ObjectStore, ObjectStoreObject
+
+class Race(ObjectStoreObject):
     """A race is a type of creature."""
-    removed  = pyqtSignal()
-    changed = pyqtSignal()
-    
-    def __init__(self, **data):
-        super(Race, self).__init__()
-        self._update(**data)
 
-    def update(self, **data):
-        self._update(**data)
-        self.changed.emit()
-
-    def _update(self, *,
+    def update(self, *,
+            id=None,
             name="",
             male_names=[],
             female_names=[],
@@ -24,7 +17,6 @@ class Race(QObject):
             weight=[160.0, 85.0], # lbs
             m_f_ratio=1.0
     ):
-        self.name = name
         self.male_names = male_names
         self.female_names = female_names
         self.family_names = family_names
@@ -33,9 +25,11 @@ class Race(QObject):
         self.weight = weight
         self.m_f_ratio = m_f_ratio
 
-    def json(self):
-        return {
-            'name':self.name,
+        super(Race, self).update(id=id, name=name)
+
+    def data(self):
+        data = super(Race, self).data()
+        data.update({
             "male_names": self.male_names,
             "female_names": self.female_names,
             "family_names": self.family_names,
@@ -43,7 +37,9 @@ class Race(QObject):
             "height": self.height,
             "weight": self.weight,
             "m_f_ratio": self.m_f_ratio
-        }
+        })
+
+        return data
 
     def generate_name(self, *, male=False, female=False):
         first_names = None
@@ -119,3 +115,5 @@ class Race(QObject):
             weight = weight/self.m_f_ratio
 
         return (height, weight)
+
+Races = ObjectStore(Race)

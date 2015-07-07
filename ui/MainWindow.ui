@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUniverse">
@@ -57,19 +57,6 @@
     </property>
     <addaction name="actionCreateRace"/>
    </widget>
-   <widget class="QMenu" name="menuSkills">
-    <property name="title">
-     <string>S&amp;kills</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="actionCreateSkill"/>
-   </widget>
-   <widget class="QMenu" name="menuPersonalities">
-    <property name="title">
-     <string>Persona&amp;lities</string>
-    </property>
-    <addaction name="actionCreatePersonality"/>
-   </widget>
    <widget class="QMenu" name="menuItems">
     <property name="title">
      <string>Items</string>
@@ -79,8 +66,6 @@
    <addaction name="menuUniverse"/>
    <addaction name="menuCharacter"/>
    <addaction name="menuRace"/>
-   <addaction name="menuSkills"/>
-   <addaction name="menuPersonalities"/>
    <addaction name="menuItems"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -143,19 +128,9 @@
     <string>&amp;Create Race</string>
    </property>
   </action>
-  <action name="actionCreatePersonality">
-   <property name="text">
-    <string>&amp;Create Personality</string>
-   </property>
-  </action>
-  <action name="actionCreateSkill">
-   <property name="text">
-    <string>&amp;Create Skill</string>
-   </property>
-  </action>
   <action name="actionCreate_Item_Prototype">
    <property name="text">
-    <string>Create Item Prototype</string>
+    <string>&amp;Create Item Prototype</string>
    </property>
   </action>
  </widget>
@@ -283,38 +258,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCreateSkill</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>createSkill()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionCreatePersonality</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>createPersonality()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionCreate_Item_Prototype</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -332,14 +275,13 @@
   </connection>
  </connections>
  <slots>
-  <slot>createCharacter()</slot>
   <slot>saveUniverse()</slot>
   <slot>saveUniverseAs()</slot>
   <slot>openUniverse()</slot>
   <slot>newUniverse()</slot>
+  <slot>createCharacter()</slot>
   <slot>createRace()</slot>
-  <slot>createSkill()</slot>
-  <slot>createPersonality()</slot>
+  <slot>createGroup()</slot>
   <slot>createItemPrototype()</slot>
  </slots>
 </ui>

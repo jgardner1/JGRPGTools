@@ -4,9 +4,8 @@ ui_CreateCharacterWidget, CreateCharacterWidgetBaseClass = loadUiType('ui/Create
 
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtWidgets import QMessageBox
-from jgrpg.model import GlobalData
 from jgrpg.model.attributes import attributes
-from jgrpg.model.Character import Characters
+from jgrpg.model import Characters
 
 from random import gauss, uniform, choice
 from math import sqrt

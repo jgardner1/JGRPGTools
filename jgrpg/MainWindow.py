@@ -6,22 +6,18 @@ from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CreateRaceWidget import CreateRaceWidget
 from jgrpg.CreateItemPrototypeWidget import CreateItemPrototypeWidget
 from jgrpg.CreateGroupWidget import CreateGroupWidget
+from jgrpg.CreateAreaWidget import CreateAreaWidget
 
 from jgrpg.ViewRaceWidget import ViewRaceWidget
 from jgrpg.ViewItemPrototypeWidget import ViewItemPrototypeWidget
 from jgrpg.ViewGroupWidget import ViewGroupWidget
 
-from jgrpg.CreateSkillDialog import CreateSkillDialog
-from jgrpg.CreatePersonalityDialog import CreatePersonalityDialog
-
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtCore import QCoreApplication
 
 from jgrpg.model import (
-        GlobalData,
-        Race, Skill, Personality,
-        Characters, ItemPrototypes, Groups,
-        ObjectStore,
+        File,
+        Races, Characters, ItemPrototypes, Groups, Areas,
 )
 
 
@@ -31,6 +27,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         super(MainWindow, self).__init__()
 
         self.setupUi(self)
+        self.file = File()
 
         self.dialogs = {}
 
@@ -38,7 +35,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if cls is Characters.cls:
             return self.createCharacter()
 
-        elif cls is Race:
+        elif cls is Races.cls:
             return self.createRace()
 
         elif cls is ItemPrototypes.cls:
@@ -46,6 +43,9 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
         elif cls is Groups.cls:
             return self.createGroup()
+
+        elif cls is Areas.cls:
+            return self.createArea()
 
         else:
             print("I don't know how to create {}".format(cls))
@@ -71,10 +71,15 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         window.show()
         return window
 
+    def createArea(self):
+        window = self.mdiArea.addSubWindow(CreateAreaWidget())
+        window.show()
+        return window
+
     def editObject(self, obj):
         """Edits an unknown object to the mdiArea."""
         widget_class = None
-        if isinstance(obj, Race):
+        if isinstance(obj, Races.cls):
             widget_class = CreateRaceWidget
 
         elif isinstance(obj, ItemPrototypes.cls):
@@ -86,11 +91,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         elif isinstance(obj, Characters.cls):
             widget_class = CreateCharacterWidget
 
-        elif isinstance(obj, Skill):
-            print("skill")
-
-        elif isinstance(obj, Personality):
-            print("personality")
+        elif isinstance(obj, Areas.cls):
+            widget_class = CreateAreaWidget
 
         else:
             print("none of the above")
@@ -106,7 +108,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         """Shows an unknown object to the mdiArea."""
 
         widget_class = None
-        if isinstance(obj, Race):
+        if isinstance(obj, Races.cls):
             widget_class = ViewRaceWidget
 
         elif isinstance(obj, ItemPrototypes.cls):
@@ -118,11 +120,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         elif isinstance(obj, Characters.cls):
             widget_class = ViewCharacterWidget
 
-        elif isinstance(obj, Skill):
-            print("skill")
-
-        elif isinstance(obj, Personality):
-            print("personality")
+        elif isinstance(obj, Areas.cls):
+            widget_class = ViewAreaWidget
 
         else:
             print("none of the above")
@@ -155,8 +154,8 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if ret != QMessageBox.Yes:
             return
 
-        if isinstance(obj, Race):
-            self.deleteRace(obj)
+        if isinstance(obj, Races.cls):
+            Races.remove(obj)
 
         elif isinstance(obj, ItemPrototypes.cls):
             ItemPrototypes.remove(obj)
@@ -167,25 +166,12 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         elif isinstance(obj, Characters.cls):
             Characters.remove(obj)
 
-        elif isinstance(obj, Skill):
-            print("skill")
-
-        elif isinstance(obj, Personality):
-            print("personality")
+        elif isinstance(obj, Areas.cls):
+            Areas.remove(obj)
 
         else:
             print("none of the above")
 
-
-    def deleteRace(self, race):
-        GlobalData.deleteRace(race)
-
-
-    def createSkill(self):
-        return self.modelessDialog(CreateSkillDialog)
-
-    def createPersonality(self):
-        return self.modelessDialog(CreatePersonalityDialog)
 
     def modelessDialog(self, DialogClass):
         name = DialogClass.__name__
@@ -202,7 +188,7 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
 
 
     def newUniverse(self):
-        GlobalData.new()
+        self.file.new()
 
     def openUniverse(self):
         filename, filefilter = QFileDialog.getOpenFileName(
@@ -213,13 +199,13 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if not filename:
             return
 
-        GlobalData.open(filename)
+        self.file.open(filename)
         
     def saveUniverse(self):
-        if not GlobalData.filename:
+        if not self.file.filename:
             return self.saveUniverseAs()
 
-        GlobalData.save()
+        self.file.save()
         
     def saveUniverseAs(self):
         filename, filefilter = QFileDialog.getSaveFileName(
@@ -233,4 +219,4 @@ class MainWindow(MainWindowBaseClass, ui_MainWindow):
         if not filename.endswith('.jgu'):
             filename += '.jgu'
 
-        GlobalData.save(filename)
+        self.file.save(filename)
