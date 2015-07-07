@@ -5,7 +5,7 @@ ui, base = loadUiType('ui/CreateAreaWidget.ui')
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QDialog
-from jgrpg.model import Areas, Characters
+from jgrpg.model import Areas, Groups
 from jgrpg.GetItemDialog import GetItemDialog
 from jgrpg.GroupItem import GroupItem
 
@@ -101,14 +101,15 @@ class CreateAreaWidget(base, ui):
             groups_added.add(model.data(model.index(i, 0), Qt.UserRole))
             
 
+        # Add rows for each unadded group
         model = QStandardItemModel()
-        for c in Characters:
-            if c in groups_added: continue
+        for g in Groups:
+            if g in groups_added: continue
 
-            model.appendRow(GroupItem(c))
+            model.appendRow(GroupItem(g))
 
-        dialog = GetItemDialog("Choose a Character to Add",
-            "Characters",
+        dialog = GetItemDialog("Choose a Group to Add",
+            "Groups",
             model
         )
 
