@@ -1,5 +1,5 @@
 from .ObjectStore import ObjectStore, ObjectStoreObject
-from .Character import Characters
+from .Group import Groups
 
 class Area(ObjectStoreObject):
     def update(self, *,

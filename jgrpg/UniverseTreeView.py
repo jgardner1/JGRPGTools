@@ -191,7 +191,7 @@ class ContextMenu(QMenu):
         self.editAction = self.addAction("Edit")
         self.editAction.triggered.connect(self.edit)
 
-        if isinstance(target, Race):
+        if isinstance(target, Races.cls):
             self.createAction = self.addAction("Create Character from This Race")
             self.createAction.triggered.connect(self.create_character_from_race)
 

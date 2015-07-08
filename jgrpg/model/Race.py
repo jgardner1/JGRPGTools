@@ -2,6 +2,8 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 from .ObjectStore import ObjectStore, ObjectStoreObject
 
+from random import choice, uniform
+
 class Race(ObjectStoreObject):
     """A race is a type of creature."""
 

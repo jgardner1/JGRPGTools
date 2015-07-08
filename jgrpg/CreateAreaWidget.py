@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QDialog
 from jgrpg.model import Areas, Groups
 from jgrpg.GetItemDialog import GetItemDialog
 from jgrpg.GroupItem import GroupItem
+from jgrpg.CreateGroupWidget import CreateGroupWidget
 
 class CreateAreaWidget(base, ui):
     
@@ -60,7 +61,7 @@ class CreateAreaWidget(base, ui):
             self.nameLineEdit.setText(area.name)
 
             for g in area.groups:
-                model.appendRow(GroupItem(c))
+                model.appendRow(GroupItem(g))
 
         else:
             # Set the defaults
@@ -108,9 +109,13 @@ class CreateAreaWidget(base, ui):
 
             model.appendRow(GroupItem(g))
 
-        dialog = GetItemDialog("Choose a Group to Add",
-            "Groups",
-            model
+        dialog = GetItemDialog(
+            title="Choose a Group to Add",
+            labelText="Groups",
+            createText="Create a new Group",
+            new_dialog_cls=CreateGroupWidget,
+            item_cls=GroupItem,
+            model=model
         )
 
         if dialog.exec() == QDialog.Accepted:

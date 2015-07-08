@@ -7,11 +7,12 @@ from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QDialog
 from jgrpg.model import Groups, Characters
 from jgrpg.GetItemDialog import GetItemDialog
+from jgrpg.CreateCharacterWidget import CreateCharacterWidget
 from jgrpg.CharacterItem import CharacterItem
 
 
 class CreateGroupWidget(base, ui):
-    
+
     def __init__(self, *, obj=None):
         """Creates an populates a Create / Edit Group Window.
 
@@ -108,9 +109,13 @@ class CreateGroupWidget(base, ui):
 
             model.appendRow(CharacterItem(c))
 
-        dialog = GetItemDialog("Choose a Character to Add",
-            "Characters",
-            model
+        dialog = GetItemDialog(
+            title="Choose a Character to Add",
+            labelText="Characters",
+            createText="Create a new Character",
+            new_dialog_cls=CreateCharacterWidget,
+            item_cls=CharacterItem,
+            model=model,
         )
 
         if dialog.exec() == QDialog.Accepted:
