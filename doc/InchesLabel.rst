@@ -1,0 +1,6 @@
+InchesLabel
+==========
+
+.. automodule:: jgrpg.InchesLabel
+   
+
